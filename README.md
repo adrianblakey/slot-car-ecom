@@ -48,4 +48,98 @@ Also you can make one yourself. It not hard to do and you'll have some fun doing
 
 We'll provide detailed instructions for doing that are below.
 
+# ESCape32 Build Options
+The best place to study the settings is here:
+https://github.com/neoxic/ESCape32/wiki/Configuration#settings
+
+Include the ANALOG option if you don't want CLI access for configuration, however better just to enable it by leaving the option out.
+
+Setting this target in the CMakeLists.txt will enable both CLI and Analog throttle:
+
+  dd_target(_SLOTCAR AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=3 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70)
+
+
+To assign analog throttle to pin PA3 on the AT32F421 MCU, you use the ANALOG_PIN=3  option.
+
+  1) Let's assume your figures - the minimum input voltage is 2.5V, the maximum input voltage is 10V.
+  2) For a 10K/1K divider, we get a factor of 1/(10+1)=1/11.
+  3) 2.5V translates to 2.5/11=227mV, 10V translates to 10/11=909mV on the voltage divider pin, so we set the following options:
+  ANALOG_MIN=227
+  ANALOG_MAX=909
+
+There will be a quadratic throttle curve when both voltage level and pwm duty cycle are applied. Motor voltage is 1/4 at 1/2 "throttle" voltage, for example.
+
+To enable 100% drag brake, you use the DUTY_DRAG=100  option.
+
+  _SLOTCAR = name
+  AT32F421 = specify the Artery F421 mcu
+  DEAD_TIME
+  COMP_MAP
+  ANALOG_MIN = the voltage at which the pwm duty cycle starts ramping up 200 is about 2.2vDC
+  ANALOG_MAX = the voltage at which the duty cycle reaches 99% = 909 is about 10vDC
+  ANALOG_PIN
+  ARM
+  VOLUME=0 turn off sounds
+  INPUT_MODE
+  FREQ_MIN = lowest pwm frequency
+  FREQ_MAX = highest pwm frequency
+  DUTY_DRAG = duty cycle for braking
+
+# Odd Notes
+
+## The F421 Startup Delay
+
+https://hackaday.com/2020/10/22/stm32-clones-the-good-the-bad-and-the-ugly/ Search for "boot-up delay" to get to the piece. Artery chips are not the same - it might be something similar.
+
+AT32F421 startup delay is ~4.2ms.
+
+After startup, there's a little bit of extra time needed to switch clock source, lock PLL, calibrate ADC, etc. For the STM32G071, it all stays within about 1ms altogether. On the other hand, it takes another extra ~1ms for the AT32F421. Not too bad, but since there's an inevitable extra 4.2ms boot delay, it all comes down to ~5.5ms that Richard witnessed in his analysis.
+
+## To Start a 10,000kV
+
+When the motor spins up, maximum duty cycle is limited at 10% by default before a full synchronized revolution is reached, i.e. 6 sync'ed commutations have commenced. This value can be overridden by the DUTY_SPUP build option. The maximum value is 25%. Please note that allowing even higher DUTY_SPUP values is possible, but generally it is dangerous as a stuck rotor will lead to instant motor overheating. Higher values also degrade smooth spinup most of the times because the motor tends to desync right away and stutters longer. Another unused option is FREQ_MIN which is 24kHz by default. Setting FREQ_MIN to 48 might help reduce current ripple.
+
+The default acceleration ramp DUTY_RAMP value is 25 (conservative 2.5%/ms) which leads to 100/2.5=40ms from 0% to 100% throttle. This can be easily increased. The maximum value is 100, i.e. 10%/ms.
+
+It's important that increased duty_spup has much less effect under load. In a real life situation, a motor with a relatively significant load simply can't reach maximum RPM in just 40ms. Increased acceleration ramping might speed it up a bit, but with a progressively dimishing effect, so care must be taken. On the other hand, too rapid power increase often leads to desyncs in some bigger motors (not our case). That is why the default value of 2.5%/ms is somewhat conservative as a one size fits all value.
+
+Why would you want to override DUTY_SPUP? Is it not okay for a motor to sync on moderate power? Why and how would you want to override DUTY_RAMP? Is it not okay for a motor to reach its maximum RPM in 40ms (with no load)? If it's not, then what time is okay? 30ms, 20ms? And you go from there.
+
+All motors and loads are different. You can't know beforehand, so you can't really have some bleeding edge values in hopes they will work with all motors and in all conditions. Hence, the default settings.
+
+An ideal commutation should happen when the rotor is at 90 degrees to the field, so torque is maximized.
+
+But in reality, this is barely feasible because a slight deviation, and you get a desync. Therefore timing is advanced so commutation delay is reduced. With more timing advance you get further and further away from the ideal 90 degrees between the rotor and the field.
+
+The timing setting of n equates to: 3.75 x n degrees
+
+The default is 4, or 15 degrees. The value can be set to between 1 and 7.
+
+In testing a 1105 10000KV motor desyncs on 3S with the default settings. Increased timing helps get rid of desyncs, nothing else. The same 10000KV motor with 22.5 degree timing (timing=6) instead of the default 15 degrees (timing=4).
+
+  set timing 6
+  set freq_min 48
+  set freq_max 96
+  set duty_rate 15
+
+In case of the 10000KV motor, set duty_rate to 15 (1.5%/ms). The latest code doesn't slow down anything too much because it's doubled above 60K ERPM.
+
+And also it's sometimes not even necessary under load.
+
+## 100% duty cycle
+
+PWM duty cycle is always one MCU clock cycle less than 100%. If allowed to be 100%, two problems arise. First, there's a very pronounced step between 100%-1 and full 100% duty cycle. Second, the charge pump capacitor becomes starved, i.e. has no time to charge. I guess these two problems are interconnected. So if more output is needed, simply supply more voltage.
+
+The ESCape32 firmware is delibertely set to not run at 100% duty cycle. It maxes out at 99% to leave a clock cycle for ... If you want a 100% dc you need to modify the code and all bets are off :-) it's not supported and a very bad idea for small motors becuase any (high or low) PWM frequency is meaningless at 100% dc.
+
+Chnage this line: https://github.com/neoxic/ESCape32/blob/master/src/main.c#L616
+    IM1_ARR = arr - 1;
+
+## Default Drag Brake Setting 75%
+
+The default value is not a random value. When a motor is driven using complementary PWM (so called damped mode) it's literally braking while running. In other words, its two energized phases are either connected to rail and ground (driving) or both connected to ground (braking). When duty cycle is close to 100%, the energized phases spend most of the time in driving state (connected to opposite polarities) giving 0% braking. When duty cycle is close to 0%, the energized phases spend most of the time in braking state (connected to ground) yielding a rough equivalent of 66% drag brake force. Deadtime obviously slightly reduces running brake by introducing an unconnected gap between transitions from driving to braking.
+
+So with the default 75% drag brake the transition from running brake to drag brake is already quite smooth.
+
+But if you need more abrupt brake higher than 75%, then yes, it won't be smooth of course.
 
