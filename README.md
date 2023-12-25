@@ -1,6 +1,6 @@
 # Adrian and Richard's (AART's) Slot Car eCom
 
-This repo contains a KiCad design, built binaries (bootloader and firmware) and help for a slot car brushless motor electronic commutator or "eCom", also known as an Electronic Speed Controller (ESC).
+This repo contains a [KiCad](https://www.kicad.org/)design, built binaries (bootloader and firmware) and help for a slot car brushless motor electronic commutator or "eCom", also known as an Electronic Speed Controller (ESC).
 
 Please note this is a prototype design and is being manufactured. It has yet to be tested. Once it is, the information in this repository shall be updated to reflect that change in development status.
 
@@ -20,13 +20,15 @@ It's hard to do better than this, however when we started out we took a look at 
 
 It's closed - despite the [AM32 firmware](https://github.com/AlkaMotors/AM32-MultiRotor-ESC-firmware) being readily available the SBM gets a custom build of this code and there's no information to explain how a hobbyist might want to make similar updates, to not only the code but also the hardware design. And there's no clarity around the intellectual property ownership.
 
-The hardware design is good however we wanted something that could respond faster, and operate from a lower starting voltage, andoperate at higher voltages and current. These capabilities are all captured in the [requirement's document](https://github.com/adrianblakey/slot-car-ecom/blob/main/docs/slot-car-ecom-requirements.ods) that you'll find in the "docs" directory.
+The hardware design is good however we wanted something that could respond faster, and operate from a lower starting voltage, and operate at higher voltages and current. These capabilities are all captured in the [requirement's document](https://github.com/adrianblakey/slot-car-ecom/blob/main/docs/slot-car-ecom-requirements.ods) that you'll find in the "docs" directory.
 
 Its cost is still a little too much for most people. The cost of electronics is a function of the parts' costs. A good rule of thumb is that the final cost of a part is about 4 times the constituent parts cost. Therefore, by making informed parts choices that might say save a cent or two while still optimizing performance, a much more cost effective design can be produced. We think we have done this.
 
 # The Files
 
-In this repo you'll find the complete set of KiCad files for the design in the directory AART11-2023-12-13_115145. The AART is our partnership acronym. In the same way Pete/Bob/Richard called theirs SBM - we've given ours the catchy name: Adrian And Richard's Technology (AART) and I suppose it reflects the fact that it really is a work of art.
+In this repo you'll find the complete set of KiCad files for the design in the directory AART11-2023-12-13_115145. We chose KiCad becuase it's freely available and there's plenty of information to describe how to use it.
+
+The AART is our partnership acronym. In the same way Pete/Bob/Richard called theirs SBM - we've given ours the catchy name: Adrian And Richard's Technology (AART) and I suppose it reflects the fact that it really is a work of art.
 
 The board itself is called a Remora. I named our first prototype this because it was a little add-on board for a commercial drone ESC (HAKRC BLHeli_32 Bit 35A 2-5S ESC) that clung to the top - a bit like the [remora fish](https://en.wikipedia.org/wiki/Remora) clings to a shark. Richard liked the name and persuaded me to keep it for the product - cause it sort of sticks to a slot car chassis I suppose. It's printed on the PCB - if you don't like it - well I hope you know what to do :-)
 
@@ -52,7 +54,7 @@ Once I can figure out how to create a proper WiKi on git - we'll provide some mo
 
 # ESCape32 Build Options
 
-We have decided  to use the ESCape32 firmware for the device. There are a number of good reasons for doing so, namely:
+We have decided to use the ESCape32 firmware for the device. There are a number of good reasons for doing so, namely:
 
   - Writing the code and getting it right, is difficult.
   - It's open source.
@@ -109,7 +111,7 @@ To enable 100% drag brake, you use the DUTY_DRAG=100  option.
 
 ## The F421 Startup Delay
 
-If there is one downside to our design it might be the choice of mcu. We relize that it has a small start up delay which we think might be caused by memory copying. This article explains something about this issue for other chips https://hackaday.com/2020/10/22/stm32-clones-the-good-the-bad-and-the-ugly/ Search for "boot-up delay" to get to the piece. Artery chips are not the same, although it might be something similar.
+If there is one downside to our design it might be the choice of mcu. We realize that it has a small start up delay which we think might be caused by memory copying. This article explains something about this issue for other chips https://hackaday.com/2020/10/22/stm32-clones-the-good-the-bad-and-the-ugly/ Search for "boot-up delay" to get to the piece. Artery chips are not the same, although it might be something similar.
 
 The AT32F421 startup delay is measured at ~4.2ms.
 
@@ -175,55 +177,54 @@ It you want to flash the the part yourself you need a USB device to do so. We us
 To use the PWLINK2 you'll need a Windows computer on which to run the Powerwriter software. You can obtain it from [this link](https://docs.powerwriter.com/en/docs/powerwriter_for_arm/software/install/) If you run it from Chrome it'll offer to translate from Chinese to English - useful I'd say.
 
 Here's the process I use:
-  Run the software, accept the "Yes" to run in admin mode to access the devices.   
-  Plug in the PWLINK2 dongle, and run driver installs and updates.  
-  If Powerwriter itself offers an update - accept the offer, and wait a bit until it provides the update.  
-  Click on the Writer Setting tab.  
-  In Chip Select:  
-  Click on MCU model:  
-  For the Artery - use the menus to select AT32F421x8  
-  Set the following:  
-    Erase type: Don't erase  
-    Interface level 3.3v  
-    Speed: 10M hz  
-    OptionByte: Factory=>Custom  
-    Note: Don't change the Write function configuration  
-  Hit the Save button at the top and save the configuration as a pkg file - it'll save you time later to reload this configuration instead of setting everything again next time you run the program. It asks for a password - (why?) ...  
-  In Communication configuration:  
-    Click on Refresh  
-    It'll update the Device dropdown - on my machine I see COM6 and COM7 - with the dongle on COM7  
-  Hit Connect - the log window on the right should show you that it has successfully connected to the dongle  
-  Select the Option bytes tab  
-  Only if you are flashing an esc/mcu for the first time, you need to disable the RDP read protection, otherwise it's not possible to update the firmware.  
-  Click on the RDP line and ensure it says read protection off  
-  Wire up the dongle to the "stab pins" (or connectors you are using to connect the dongle to the board - you could solder some wires on but ...) to connect the dongle to the swdio/clk pins.  
-  Connect a ground wire from the 2 dongle gnd pins to -ve on your power supply (psu).  
-  Connect the psu to the red/black of the eCom  
-  If the eCom has already been flashed with firmware, yu might want to disconnect the motor from the eCom otherwise the motor might run when you turn power on. (not the case if you use the default firmware)  
-  Power on - give it about 8VDC
-  (It will beep if it's a drone esc with a buzzer running Beliheli32)  
-  If it's running the ESCape32 default binaries - no beep.
-  Note: If you are flashing the prototype (HAKRC) drone eCom and the shunt is in place on the HAKRC and it's running the default ESCape32 binary, you can connect a serial terminal to the white and black control cable of the esc - see the ESCap32 wiki. https://github.com/neoxic/ESCape32/wiki  
-  Load up the binaries into Powerwriter.  
-  Select the Program Memory tab  
-  Click on + Add firmware  
-  Locate the bootstrap binary - _BOOT3_FAST-rev2.bin - this is a custom build target and not a default binary - it's in the bin directory of this repo  
-  Accept the default memory location 08000000  
-  Click OK  
-  Again - click on + Add firmware  
-  Locate the motor commutator binary - _SLOTCAR_rev8.bin  
-  Give it the location 08001000 - there is a bug in Powerwriter that truncates a zero from the end of the address - just add it.  
-  Hit the checkmark Apply button  
-  You are now ready to flash  
-  Touch the SWD pins from the dongle on to the pads on the eCom.  
-  Just for good measure, go into the writer settings and hit disconnect/connect - check the log  
-  If this is a new mcu - select: Option byte  
-  Hit the "Write" button - this should disable the write protection on the mcu  
-  Select the Program Memory tab  
-  If this has already been flashed - you must first erase the current flash before writing the new flash  
-  With the swd pins connected, hit erase - it take about 2 secs  
-  Hit "Write" - again takes about 2 sec  
-  Power off the eCom  
-  Attach a motor  
-  Power on at say 4v - restraining the motor  
-  This is where it's useful to have a command line or a WiFi dongle attached to enable you to change any compiled-in settings ...
+  - Run the software, accept the "Yes" to run in admin mode to access the devices.   
+  - Plug in the PWLINK2 dongle, and run driver installs and updates.  
+  - If Powerwriter itself offers an update - accept the offer, and wait a bit until it provides the update.  
+  - Click on the Writer Setting tab.  
+  - In Chip Select:  
+  - Click on MCU model:  
+  - For the Artery - use the menus to select AT32F421x8  
+  - Set the following:  
+     Erase type: Don't erase  
+     Interface level 3.3v  
+     Speed: 10M hz  
+     OptionByte: Factory=>Custom  
+     Note: Don't change the Write function configuration  
+  - Hit the Save button at the top and save the configuration as a pkg file - it'll save you time later to reload this configuration instead of setting everything again next time you run the program. It asks for a password - (why?) ...  
+  - In Communication configuration:  
+  - Click on Refresh  
+  - It'll update the Device dropdown - on my machine I see COM6 and COM7 - with the dongle on COM7  
+  - Hit Connect - the log window on the right should show you that it has successfully connected to the dongle  
+  - Select the Option bytes tab  
+  - Only if you are flashing an esc/mcu for the first time, you need to disable the RDP read protection, otherwise it's not possible to update the firmware.  
+  - Click on the RDP line and ensure it says read protection off  
+  - Wire up the dongle to the "stab pins" (or connectors you are using to connect the dongle to the board - you could solder some wires on but ...) to connect the dongle to the swdio/clk pins.  
+  - Connect a ground wire from the 2 dongle gnd pins to -ve on your power supply (psu).  
+  - Connect the psu to the red/black of the eCom  
+  - If the eCom has already been flashed with firmware, you might want to disconnect the motor from the eCom otherwise the motor might run when you turn power on. (not the case if you use the default firmware)  
+  - Power on - give it about 8VDC (It will beep if it's a drone esc with a buzzer running Beliheli32)  
+  - If it's running the ESCape32 default binaries - no beep.
+  - Note: If you are flashing the prototype (HAKRC) drone eCom and the shunt is in place on the HAKRC and it's running the default ESCape32 binary, you can connect a serial terminal to the white and black control cable of the esc - see the ESCap32 wiki. https://github.com/neoxic/ESCape32/wiki  
+  - Load up the binaries into Powerwriter.  
+  - Select the Program Memory tab  
+  - Click on + Add firmware  
+  - Locate the bootstrap binary - _BOOT3_FAST-rev2.bin - this is a custom build target and not a default binary - it's in the bin directory of this repo  
+  - Accept the default memory location 08000000  
+  - Click OK  
+  - Again - click on + Add firmware  
+  - Locate the motor commutator binary - _SLOTCAR_rev8.bin  
+  - Give it the location 08001000 - there is a bug in Powerwriter that truncates a zero from the end of the address, just add it.  
+  - Hit the checkmark Apply button  
+  - You are now ready to flash  
+  - Touch the SWD pins from the dongle on to the pads on the eCom.  
+  - Just for good measure, go into the writer settings and hit disconnect/connect - check the log  
+  - If this is a new mcu - select: Option byte  
+  - Hit the "Write" button - this should disable the write protection on the mcu  
+  - Select the Program Memory tab  
+  - If this has already been flashed - you must first erase the current flash before writing the new flash  
+  - With the swd pins connected, hit erase - it take about 2 secs  
+  - Hit "Write" - again takes about 2 sec  
+  - Power off the eCom  
+  - Attach a motor  
+  - Power on at say 4v - restraining the motor  
+  - This is where it's useful to have a command line or a WiFi dongle attached to enable you to change any compiled-in settings ...
