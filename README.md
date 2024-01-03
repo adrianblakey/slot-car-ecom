@@ -1,8 +1,8 @@
 # Adrian and Richard's (AART's) Slot Car eCom
 
-This repo contains a [KiCad](https://www.kicad.org/)design, built binaries (bootloader and firmware) and documentation for a slot car brushless motor electronic commutator or "eCom", also known as an Electronic Speed Controller (ESC).
+This repo contains a [KiCad](https://www.kicad.org/) design, built binaries (bootloader and firmware) and documentation for a slot car brushless motor electronic commutator or "eCom", also known as an Electronic Speed Controller (ESC).
 
-Please note this is a prototype design and is being manufactured. Prototype parts shall be available early in 2024, so it has yet to be tested. Once it is, the information in this repository shall be updated to reflect that change in development status.
+**Please note this is a prototype design and is in the process of being manufactured. Prototype parts shall be available early in 2024, so it has yet to be tested. Once it is, the information in this repository shall be updated to reflect that change in development status.**
 
 All the intellectual property herein is released under a [creative commons license](https://creativecommons.org/share-your-work/cclicenses/#:~:text=Creative%20Commons%20licenses%20give%20everyone,creative%20work%20under%20copyright%20law.). Under the terms of this license you are free to use everything you find here and make your own eCom from the distributed files. We hope that by doing so we'll stimulate innovation and experimentation. If you have suggestions for improvement please file a bug report and tell us about it. We'll provide some other feedback mechanisms as we go on and build a community. Also a good place to get help is the [ESCape32 slot car discord channel.](https://discord.com/invite/aed6xdSM5Y) ESCape32 is the firmware we have used to flash and test this eCom it's also open source and you'll find it on [github too.](https://github.com/neoxic/ESCape32)
 
@@ -59,7 +59,7 @@ If you want one of these - you have a few choices, namely:
 
 We should have a few flashed, tested and inventoried for our own use and to give to friends and family (neither Richard nor I have family that slot car race :-) - so I suppose half of that is a lie) If you are very nice to us and you are willing to be a tester and provide constructive feedback and suggestions I am pretty sure you'll get one. At some point the supply will run out and we might well have moved on to working on V2, V3 ... (there will be innovations).
 
-You can make one yourself. Everything is here to do that. It is not hard to do and you'll have some fun doing it and learn some new skills. If you want to make a lot and sell them - please do ... The basic steps to do so are: create an account on JLCPCB, upload some files from the production directory, possibly order missing parts, wait a while, optionally build a version of the firmware, flash the part with your own build or the one we supply.
+You can make one yourself. Everything is here to do that. It is not hard to do and you'll have some fun doing it and learn some new skills. If you want to make a lot and sell them - please do ... The basic steps to do so are: create an account on JLCPCB, upload some files from the production directory, possibly order missing parts, wait a while, optionally build a version of the firmware, flash the part with your own build or the one we supply, test it, put it in a chassis.
 
 We hope that some of the vendors want to get involved and see an opportunity to make and sell these at a profit. As you'll see there is some effort and cost involved for them to do that, so expect to pay a premium for a finished item. There's also maybe an opportunity say to create a third party marketplace for custom binaries, an eCom tester, a flashing jig etc.
 
@@ -94,7 +94,7 @@ We use the ESCape32 firmware to program the device. There are a number of good r
   - We can't say enough good things about Arseny, its developer, who's been helpful and supportive of our efforts.
   - It's fully configurable from a command line and dongle so you do not need to compile custom binaries to make configuration changes.
 
-The stock ESCape32 firmware for the Artery should run on the board. In comparison to a "normal" ESC the board has some additional features that are not normally foud on other ESC's - like the reverse polarity protection, and low voltage operation - overkill for a drone ESC. But never the less it should run :-)
+The stock ESCape32 firmware for the Artery should run on the board. In comparison to a commercial drone ESC, the board has some additional features that are not normally found on other ESC's - like the reverse polarity protection, and low voltage operation - overkill for a drone ESC. But never the less it should run :-)
 
 ## Provided Binaries
 
@@ -118,11 +118,11 @@ For the bootloader:
 
 For the firmware:
 
-    dd_target(_SLOTCAR AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70)
+    add_target(_SLOTCAR AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70)
 
 The boot loader only differs from the ESCape32 distributed bootloader for the Artery by the addition of "FAST_EXIT".
 
-The firmware build is more complex, there's an explanation below which describes the parameters, and Arseny has promised a more complete write up that'll appear in the [ESCape32 WiKi.](https://githib.comneoxic/ESCape32/wiki) We chose build options that are different from the the defaults based on our prototype experiments.
+The firmware build is more complex, there's an explanation below which describes the parameters, and Arseny has promised a more complete write up that'll appear in the [ESCape32 WiKi.](https://githib.comneoxic/ESCape32/wiki) We chose build options that are different from the defaults based on our prototype experiments.
 
 As long as the firmware has not been compiled with the "ANALOG" option (it hasn't) - the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
 
@@ -138,26 +138,24 @@ If you want to build and flash your own version of the firmware the best place t
 
 https://github.com/neoxic/ESCape32/wiki/Configuration#settings
 
-Include the ANALOG option if you DON'T want CLI access for configuration, however better just to enable it by leaving the option out.
+Include the ANALOG option if you ***DON'T*** want CLI access for configuration, however better just to enable it by leaving the option out.
 
 You need to build 2 custom binaries, namely:
 
   - the boot loader  
-  - the driver
-  
-The ESCape32 distributed binaries will not work - they are for specific commercial drone ESC's.
+  - the driver  
 
 Setting these targets in the CMakeLists.txt will enable both CLI and Analog throttle:
 
 In ESCape32/boot/CMakeLists.txt  
   
-  add_target(_BOOT3_FAST STM32F0 IO_PA2 USARTv1 FAST_EXIT)
+    add_target(_BOOT3_FAST STM32F0 IO_PA2 USARTv1 FAST_EXIT)
 
 In ESCape32/CMakeLists.txt  
 
-  dd_target(_SLOTCAR AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70)
+    add_target(_SLOTCAR AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70)
 
-To assign analog throttle to pin 6 on the AT32F421 MCU, you use the ANALOG_PIN=6 option.  
+To assign analog throttle to pin 6 on the AT32F421 MCU, use the ANALOG_PIN=6 option.  
 
 For ramping the pulse width modulation (pwm) duty cycle with respect to input voltage:  
 
@@ -172,31 +170,31 @@ There will be a quadratic throttle curve when both voltage level and pwm duty cy
 
 To enable 100% drag brake, set the DUTY_DRAG=100  option.
 
-  _SLOTCAR = name  
-  AT32F421 = specify the Artery F421 mcu  
-  DEAD_TIME  
-  COMP_MAP  
-  ANALOG_MIN = the voltage at which the pwm duty cycle starts ramping up 200 is about 2.2VDC  
-  ANALOG_MAX = the voltage at which the duty cycle reaches 99% = 909 is about 10VDC  
-  ANALOG_PIN  
-  ARM  
-  VOLUME=0 turn off sounds - the board does not have sound :-)
-  INPUT_MODE  
-  FREQ_MIN = lowest pwm frequency  
-  FREQ_MAX = highest pwm frequency  
-  DUTY_DRAG = duty cycle for braking  
+     _SLOTCAR = name  
+     AT32F421 = specify the Artery F421 mcu  
+     DEAD_TIME  
+     COMP_MAP  
+     ANALOG_MIN = the voltage at which the pwm duty cycle starts ramping up 200 is about 2.2VDC  
+     ANALOG_MAX = the voltage at which the duty cycle reaches 99% = 909 is about 10VDC  
+     ANALOG_PIN  
+     ARM  
+     VOLUME=0 turn off sounds - the board does not have sound :-)
+     INPUT_MODE  
+     FREQ_MIN = lowest pwm frequency  
+     FREQ_MAX = highest pwm frequency  
+     DUTY_DRAG = duty cycle for braking  
 
 # Misc. Notes
 
 ## The F421 Startup Delay
 
-If there is one downside to our design it might be the choice of mcu. We realize that it has a small start up delay which we think might be caused by memory copying. This article explains something about this issue for other chips https://hackaday.com/2020/10/22/stm32-clones-the-good-the-bad-and-the-ugly/ Search for "boot-up delay" to get to the piece. Artery chips are not the same, although it might be something similar.
+If there is one downside to our design it might be the choice of MCU. We realize that it has a small start up delay which we think might be caused by memory copying. This article explains something about this issue for other chips https://hackaday.com/2020/10/22/stm32-clones-the-good-the-bad-and-the-ugly/ Search for "boot-up delay" to get to the piece. Artery chips are not the same, although it might be something similar.
 
 The AT32F421 startup delay is measured at ~4.2ms.
 
 After startup, there's a little bit of extra time needed to switch clock source, lock PLL, calibrate ADC, etc. For the STM32G071, it all stays within about 1ms altogether. On the other hand, it takes another extra ~1ms for the AT32F421. Not too bad, but since there's an inevitable extra 4.2ms boot delay, it all comes down to ~5.5ms that Richard witnessed in his analysis.
 
-We chose the Artery F421 mcu because of cost and speed so that we had a fast enough clock speed to commutate a 12 pole motor at very high rpm, say 180,000 rpm+. As motor technogology matures we might need to revist this decision and it's an obvious change to the design that should be fairly simple to make. If you do that, please contribute it back.
+We chose the Artery F421 MCU because of itys (low) cost and (high) speed so that we had a fast enough clock speed to commutate a 12 pole motor at very high rpm, say 180,000 rpm+. As motor technogology matures we might need to revist this decision and it's an obvious change to the design that should be fairly simple to make. If you do that, please contribute it back.
 
 ## To Start a 10,000kV Motor (say)
 
