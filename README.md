@@ -20,9 +20,9 @@ It's hard to do better than this, however when we started out we took a look at 
 
 It's closed - despite the [AM32 firmware](https://github.com/AlkaMotors/AM32-MultiRotor-ESC-firmware) being readily available the SBM gets a custom build of this code and there's no information to explain how a hobbyist might want to make similar updates, to not only the code but also the hardware design. And there's no clarity around the intellectual property ownership.
 
-The hardware design is good however we wanted something that could respond faster, and operate from a lower starting voltage, and operate at higher voltages and current. These capabilities are all captured in the [requirement's document](https://github.com/adrianblakey/slot-car-ecom/blob/main/docs/slot-car-ecom-requirements.ods) that you'll find in the "docs" directory.
+The hardware design is good however we wanted something that could respond faster, and operate from a lower starting voltage, and operate at higher voltages and current. These capabilities are all captured in the [requirements document](https://github.com/adrianblakey/slot-car-ecom/blob/main/docs/slot-car-ecom-requirements.ods) that you'll find in the "docs" directory.
 
-Its cost is still a little too much for most people. The cost of electronics is a function of the parts' costs. A good rule of thumb is that the final cost of a part is about 4 times the constituent parts cost. Therefore, by making informed parts choices that might say save a cent or two while still optimizing performance, a much more cost effective design can be produced. We think we have done this.
+Its cost is still a little too much for most people. The cost of electronics is a function of the parts' cost. A good rule of thumb is that the final cost of an assembled board is about 4 times the constituent parts' cost. Therefore, by making informed parts choices that might say save a cent or two while still optimizing performance, a much more cost effective design can be produced. We think we have done this.
 
 # The Files
 
@@ -43,9 +43,7 @@ The AART is our partnership acronym. In the same way Pete/Bob/Richard called the
 
 The board itself is called a Remora. Our first prototype was called this because it was a little add-on board for a commercial drone ESC (HAKRC BLHeli_32 Bit 35A 2-5S ESC) that clung to the top - a bit like the [remora fish](https://en.wikipedia.org/wiki/Remora) clings to a shark. Richard liked the name and persuaded me to keep it for the product - cause it sort of stuck and sticks to a slot car chassis I suppose. It's printed on the PCB - if you don't like it - well I hope you know what to do :-)
 
-There is also a [binary directory called "bin"](https://github.com/adrianblakey/slot-car-ecom/tree/main/bin) in git in which you'll find ESCape32 binaries built specifically for the part. There is a custom bootloader _BOOT3_FAST-rev2.bin and a firmware build _SLOTCAR-rev8.bin - you should not need the none "bin" files - but they are there for completeness.
-
-NOTE: The current firmware binary needs updating! and will only run the HARKRC prototype.
+There is also a [binary directory called "bin"](https://github.com/adrianblakey/slot-car-ecom/tree/main/bin) in git in which you'll find ESCape32 binaries built specifically for the part. There is a custom bootloader _BOOT3_FAST-rev2.bin and a firmware build _SLOTCAR-rev9.bin - you should not need the none "bin" files - but they are there for completeness.
 
 You can download the sources of ESCape32 and build them yourself assuming you have a suitable machine on which to do so. We build ours on an Arch Linux laptop - it only takes a few seconds to do. There are other Linux distros. that'll work fine and (guessing ... you can either: install cygwin on Windows or the [Linux Subsystem for Windows](https://learn.microsoft.com/en-us/windows/wsl/install) or suitable packages using brew on MacOS). 
 
@@ -57,19 +55,19 @@ If you want one of these - you have a few choices, namely:
 
   1. Ask us (nicely) for one.
   2. Make one yourself.
-  3. And hopefully sometime in the future - call your favorite slot car parts vendor - maybe Betta in the UK and maybe do-slot in Germany and in the USA(?)
+  3. And hopefully sometime in the future - call your favorite slot car parts vendor - maybe Betta in the UK, and maybe do-slot in Germany and in the USA(?)
 
 We should have a few flashed, tested and inventoried for our own use and to give to friends and family (neither Richard nor I have family that slot car race :-) - so I suppose half of that is a lie) If you are very nice to us and you are willing to be a tester and provide constructive feedback and suggestions I am pretty sure you'll get one. At some point the supply will run out and we might well have moved on to working on V2, V3 ... (there will be innovations).
 
 You can make one yourself. Everything is here to do that. It is not hard to do and you'll have some fun doing it and learn some new skills. If you want to make a lot and sell them - please do ... The basic steps to do so are: create an account on JLCPCB, upload some files from the production directory, possibly order missing parts, wait a while, optionally build a version of the firmware, flash the part with your own build or the one we supply.
 
-We hope that some of the vendors want to get involved and see an opportunity to make and sell these at a profit. As you'll see there is some effort and cost involved for them to do that, so expect to pay a premium for a finished item. There's also maybe an opportunity say to create a third party marketplace for custom binaries etc.
+We hope that some of the vendors want to get involved and see an opportunity to make and sell these at a profit. As you'll see there is some effort and cost involved for them to do that, so expect to pay a premium for a finished item. There's also maybe an opportunity say to create a third party marketplace for custom binaries, an eCom tester, a flashing jig etc.
 
 Once I can figure out how to create a proper WiKi on git - we'll provide some more detailed instructions for doing all this.
 
 # Slot Car Racing
 
-We want the slot car hobby to flourish and not die. We see brushless motors as a lower cost option to brush motors that are close to (and soon) shall exceed the performance of brushed motors. One obstacle to running brushless is the eCom - we hope by providing a very competetive one at very low cost, we can remove if not eliminate that obstacle. 
+We want the slot car hobby to flourish and not die. We see brushless motors as a lower cost option to brushed motors that are close to (and soon) shall exceed the performance of brushed motors. One obstacle to running brushless is the eCom - we hope by providing a very competetive one at very low cost, we can remove if not eliminate that obstacle. 
 
 Slot car racing has always represented a way to practically learn some new skills.
 
@@ -83,7 +81,7 @@ We hope by providing an open solution for the latter we've moved things along a 
 
 Now, all we need (lol) are some open designs for motors and chassis :-)
 
-# ESCape32 Build Options
+# ESCape32 Firmware
 
 We use the ESCape32 firmware to program the device. There are a number of good reasons for doing so, namely:
 
@@ -94,19 +92,60 @@ We use the ESCape32 firmware to program the device. There are a number of good r
   - There is a community and Arseny specifically created a [Discord channel for slot-cars](https://discord.com/channels/1103745257046278144/1151565789984469144) (yeah).
   - It's lovely, readable code.
   - We can't say enough good things about Arseny, its developer, who's been helpful and supportive of our efforts.
+  - It's fully configurable from a command line and dongle so you do not need to compile custom binaries to make configuration changes.
+
+The stock ESCape32 firmware for the Artery should run on the board. In comparison to a "normal" ESC the board has some additional features that are not normally foud on other ESC's - like the reverse polarity protection, and low voltage operation - overkill for a drone ESC. But never the less it should run :-)
+
+## Provided Binaries
+
+In order to flash the board you need 2 binary files. Namely:
+
+  - the bootloader
+  - the driver
+
+In the bin directory you'll find 
+
+  _BOOT3_FAST-rev2.bin  
+  _SLOTCAR-rev9.bin  
+
+The starting underscore designates them as "experimental". They are built on Linux from the ESCape32 binaries. 
+
+The following build options are used:
+
+For the bootloader:
+
+    add_target(_BOOT3_FAST STM32F0 IO_PA2 USARTv1 FAST_EXIT)
+
+For the firmware:
+
+    dd_target(_SLOTCAR AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70)
+
+The boot loader only differs from the ESCape32 distributed bootloader for the Artery by the addition of "FAST_EXIT".
+
+The firmware build is more complex, there's an explanation below which describes the parameters, and Arseny has promised a more complete write up that'll appear in the [ESCape32 WiKi.](https://githib.comneoxic/ESCape32/wiki) We chose build options that are different from the the defaults based on our prototype experiments.
+
+As long as the firmware has not been compiled with the "ANALOG" option (it hasn't) - the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
+
+There is a complete explanation about how to connect a computer and use the [command line interface (CLI) on the ESCape32 WiKi.](https://github.com/neoxic/ESCape32/wiki/WiFiLink)
+
+It's also possible to connect a WiFi dongle to the same interface and use a Web browser to make configuration changes. The [WiFi link](https://github.com/neoxic/ESCape32/wiki/WiFiLink) is also described on the github WiKi.
+
+Either you can obtain a "C3 Super Mini board" from ESP32 (they don't seem to yet be available ...) or you can buy a very inexpensive (~$5) S3 board and load a supplied image onto it. 
+
+## Building the Firmware
 
 If you want to build and flash your own version of the firmware the best place to study the settings is here:
 
 https://github.com/neoxic/ESCape32/wiki/Configuration#settings
 
-Include the ANALOG option if you don't want CLI access for configuration, however better just to enable it by leaving the option out.
+Include the ANALOG option if you DON'T want CLI access for configuration, however better just to enable it by leaving the option out.
 
 You need to build 2 custom binaries, namely:
 
   - the boot loader  
   - the driver
   
-The ESCape32 distributed binaries will not work - they are for commerical drone ESC's.
+The ESCape32 distributed binaries will not work - they are for specific commercial drone ESC's.
 
 Setting these targets in the CMakeLists.txt will enable both CLI and Analog throttle:
 
@@ -118,30 +157,30 @@ In ESCape32/CMakeLists.txt
 
   dd_target(_SLOTCAR AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70)
 
-To assign analog throttle to pin 6 on the AT32F421 MCU, you use the ANALOG_PIN=6  option.  
+To assign analog throttle to pin 6 on the AT32F421 MCU, you use the ANALOG_PIN=6 option.  
 
-For ramping the pwm duty cycle with respect to input voltage:  
+For ramping the pulse width modulation (pwm) duty cycle with respect to input voltage:  
 
-  1) Let's assume your figures - the minimum input voltage is 2.5V, the maximum input voltage is 10V.  
+  1) Let's assume the minimum input voltage is ~2.2V, and the maximum input voltage is 10V. This corresponds roughly to the smallest useful track voltage to get the board running (where we want to start ramping up the dc), and a top end track voltage at which we want to hit 100% duty cycle (we choose 10V not 12.4 say because often we run low voltage club race nights and still want 100% dc at this maximum voltage)
   2) For a 10K/1K divider, we get a factor of 1/(10+1)=1/11.  
-  3) 2.5V translates to 2.5/11=227mV, 10V translates to 10/11=909mV on the voltage divider pin, so we set the following options:  
+  3) 2.2V translates to 2.2/11=200mV, 10V translates to 10/11=909mV on the voltage divider pin, so we set the following options:  
   
-    ANALOG_MIN=227
-    ANALOG_MAX=909
+    ANALOG_MIN=200  
+    ANALOG_MAX=909  
 
 There will be a quadratic throttle curve when both voltage level and pwm duty cycle are applied. Motor voltage is 1/4 at 1/2 "throttle" voltage, for example.
 
-To enable 100% drag brake, you use the DUTY_DRAG=100  option.
+To enable 100% drag brake, set the DUTY_DRAG=100  option.
 
   _SLOTCAR = name  
   AT32F421 = specify the Artery F421 mcu  
   DEAD_TIME  
   COMP_MAP  
-  ANALOG_MIN = the voltage at which the pwm duty cycle starts ramping up 200 is about 2.2vDC  
-  ANALOG_MAX = the voltage at which the duty cycle reaches 99% = 909 is about 10vDC  
+  ANALOG_MIN = the voltage at which the pwm duty cycle starts ramping up 200 is about 2.2VDC  
+  ANALOG_MAX = the voltage at which the duty cycle reaches 99% = 909 is about 10VDC  
   ANALOG_PIN  
   ARM  
-  VOLUME=0 turn off sounds  
+  VOLUME=0 turn off sounds - the board does not have sound :-)
   INPUT_MODE  
   FREQ_MIN = lowest pwm frequency  
   FREQ_MAX = highest pwm frequency  
@@ -163,13 +202,15 @@ We chose the Artery F421 mcu because of cost and speed so that we had a fast eno
 
 There are several parameters to the ESCape32 firmware that can be adjusted to alter motor function.
 
-When a motor spins up, maximum duty cycle is limited at 10% by default before a full synchronized revolution is reached, i.e. 6 sync'ed commutations have commenced. This value can be overridden by the DUTY_SPUP build option. The maximum value is 25%. Please note that allowing even higher DUTY_SPUP values is possible, but generally it is dangerous as a stuck rotor will lead to instant motor overheating. Higher values also degrade smooth spinup most of the times because the motor tends to desync right away and stutters longer. Another option is FREQ_MIN which is 24kHz by default. Setting FREQ_MIN to 48 can help reduce current ripple.
+When a motor spins up, maximum duty cycle is limited at 10% by default before a full synchronized revolution is reached, i.e. 6 sync'ed commutations have commenced. This value can be overridden by the DUTY_SPUP build option. The maximum value is 25%. Please note that allowing even higher DUTY_SPUP values is possible, but generally it is dangerous as a stuck rotor will lead to instant motor overheating. Higher values also degrade smooth spinup most of the time because the motor tends to desync right away and stutters longer. Another option is FREQ_MIN which is 24kHz by default. Setting FREQ_MIN to 48 can help reduce current ripple.
 
-The default acceleration ramp DUTY_RAMP value is 25 (conservative 2.5%/ms) which leads to 100/2.5=40ms from 0% to 100% throttle. This can be easily increased. The maximum value is 100, i.e. 10%/ms.
+The default acceleration ramp, DUTY_RATE value is 25 (conservative 2.5%/ms) which leads to 100/2.5=40ms from 0% to 100% throttle. This can be easily increased. The maximum value is 100, i.e. 10%/ms.
 
 It's important that increased DUTY_SPUP has much less effect under load. In a real life situation, a motor with a relatively significant load simply can't reach maximum RPM in just 40ms. Increased acceleration ramping might speed it up a bit, but with a progressively diminishing effect, so care must be taken. On the other hand, too rapid power increase often leads to desyncs in some bigger motors (not our case). That is why the default value of 2.5%/ms is somewhat conservative as a one size fits all value.
 
-Why would you want to override DUTY_SPUP? Is it not alright for a motor to sync on moderate power? Why and how would you want to override DUTY_RAMP? Is it not alright for a motor to reach its maximum RPM in 40ms (with no load)? If it's not, then what time is okay? 30ms, 20ms? Do the calcualation and go from there.
+Why would you want to override DUTY_SPUP? Is it not alright for a motor to sync on moderate power? Why and how would you want to override DUTY_RATE? Is it not alright for a motor to reach its maximum RPM in 40ms (with no load)? If it's not, then what time is okay? 30ms, 20ms? Do the calcualation and go from there.
+
+### Advance 
 
 All motors and loads are different. You can't know beforehand, so you can't really have some bleeding edge values in the hope they will work with all motors and in all conditions. Hence, the default settings.
 
@@ -188,23 +229,15 @@ In testing, a 1105 10000KV motor desyncs on 3S (S means the number of LiPo RC ba
   set freq_max 96  
   set duty_rate 15  
 
-In case of the 10000KV motor, set duty_rate to 15 (1.5%/ms). The latest code doesn't slow down anything too much because it's doubled above 60K ERPM.
+An alternative setting that can be used to limit power based on RPM is duty_ramp (not to be confused with duty_rate). Read the code :-)
 
-And also it's sometimes not even necessary under load. You might witness this say in a car that won't leave the line smoothly on full power - it'll stutter and "cog". This might be becuase the motor is not under load because the wheels are spinning due to too much torque from the motor - drone motors have a lot of torque - maybe too much. There are some [technical articles ... ](https://www.miniquadtestbench.com/motors-and-torque.html#:~:text=Torque%20itself%20is%20simply%20a,power%20%3D%20torque%20*%20angular%20velocity.) 
-
-## 100% duty cycle
-
-In the ESCape32 code the PWM duty cycle is always one MCU clock cycle less than 100%. If allowed to be 100%, two problems arise. First, there is a very pronounced step between 100%-1 and full 100% duty cycle. Second, the charge pump capacitor becomes starved, i.e. has no time to charge. These two issues are interconnected. So if more output is needed, simply supply more voltage.
-
-The ESCape32 firmware is deliberately set to not run at 100% duty cycle. If you want a 100% dc you need to modify the code and all bets are off :-) it's not supported and a very bad idea for small motors because any (high or low) PWM frequency is meaningless at 100% dc.
-
-If you really want to try it at your own risk - change this line: https://github.com/neoxic/ESCape32/blob/master/src/main.c#L616 to:  
-    
-    IM1_ARR = arr - 1;  
+You might witness timing effects in a car that won't leave the line smoothly on full power - it'll stutter and "cog". This might be becuase the motor is not under load because the wheels are spinning (!) due to too much torque from the motor - drone motors have a lot of torque - maybe too much. There are some [technical articles ... ](https://www.miniquadtestbench.com/motors-and-torque.html#:~:text=Torque%20itself%20is%20simply%20a,power%20%3D%20torque%20*%20angular%20velocity.) 
 
 ## Default Drag Brake Setting 75%
 
-The default value is not a random value. When a motor is driven using complementary PWM (so called damped mode) it's literally braking while running. In other words, its two energized phases are either connected to rail and ground (driving) or both connected to ground (braking). When duty cycle is close to 100%, the energized phases spend most of the time in the driving state (connected to opposite polarities) giving 0% braking. When duty cycle is close to 0%, the energized phases spend most of the time in the braking state (connected to ground) yielding a rough equivalent of 66% drag brake force. Deadtime obviously slightly reduces running brake by introducing an unconnected gap between transitions from driving to braking.
+The default value is not a random value. When a motor is driven using complementary PWM (so called damped mode) it's literally braking while running. In other words, its two energized phases are either connected to rail and ground (driving) or both connected to ground (braking). 
+
+When the duty cycle is close to 100%, the energized phases spend most of the time in the driving state (connected to opposite polarities) giving 0% braking. When duty cycle is close to 0%, the energized phases spend most of the time in the braking state (connected to ground) yielding a rough equivalent of 66% drag brake force. Deadtime obviously slightly reduces running brake by introducing an unconnected gap between transitions from driving to braking.
 
 So with the default 75% drag brake the transition from running brake to drag brake is already quite smooth.
 
@@ -212,14 +245,20 @@ But if you need a more abrupt brake, higher than 75%, try setting it, it won't b
 
 # Flashing
 
-It you want to flash the the part yourself you need a USB device to do so. We use a Powerwriter PWLINK2 that has the capability to flash the Artery F421 mcu as well as several other types of mcu. If you want to flash an STM mcu you can use their device the STLINK. There is more information on the [ESCape32 WiKi about flashing](https://github.com/neoxic/ESCape32/wiki/Installation)
+It you want to flash the the part yourself you need a USB device and some connectors to do so. We use a Powerwriter PWLINK2 that has the capability to flash the Artery F421 MCU as well as several other types of MCU. If you want to flash an STM MCU you can use their device the STLINK. There is more information on the [ESCape32 WiKi about flashing](https://github.com/neoxic/ESCape32/wiki/Installation)
 
-To use the PWLINK2 you'll need a Windows computer on which to run the Powerwriter software. You can obtain it from [this link](https://docs.powerwriter.com/en/docs/powerwriter_for_arm/software/install/) If you run it from Chrome it'll offer to translate from Chinese to English - useful I'd say.
+To connect the PWLINK2 to the board we have some connectors that have very fine spring loaded pins on the ends to touch down on the single wire debug pads on the board. (More about these later)
 
-Here's the process we use:
+To use the PWLINK2 you'll either need a Windows computer on which to run the Powerwriter software, or a Linux/macOS machine to run the OpenOCD software.
+
+PowerWriter has options to flash a board that has existing software on it. If you are flashing for the first time and do not need to reset the option bytes OpenOCD is a good solution. The official [OpenOCD fork for Artery MCU's is in github.](https://github.com/ArteryTek/openocd) I haven't tried using it yet therefore if you do please file a defect and provide some explicit instructions.
+
+Since we built our prototype from an existing drone ESC we used PowerWriter. You can obtain PowerWriter from [this link](https://docs.powerwriter.com/en/docs/powerwriter_for_arm/software/install/) If you run it from Chrome it'll offer to translate from Chinese to English - useful I'd say.
+
+Here's the process we used:
   - Run the software, accept the "Yes" to run in admin mode to access the devices.   
   - Plug in the PWLINK2 dongle, and run driver installs and updates.  
-  - If Powerwriter itself offers an update - accept the offer, and wait a bit until it provides the update.  
+  - If PowerWriter offers an update - accept the offer, and wait a bit until it provides the update.  
   - Click on the Writer Setting tab.  
   - In Chip Select:  
   - Click on MCU model:  
@@ -234,9 +273,9 @@ Here's the process we use:
   - In Communication configuration:  
   - Click on Refresh  
   - It'll update the Device dropdown - on my machine I see COM6 and COM7 - with the dongle on COM7  
-  - Hit Connect - the log window on the right should show you that it has successfully connected to the dongle  
+  - Hit Connect - the log window on the right should show you that it has successfully connected to the PWLINK2 dongle  
   - Select the Option bytes tab  
-  - Only if you are flashing an esc/mcu for the first time, you need to disable the RDP read protection, otherwise it's not possible to update the firmware.  
+  - Only if you are flashing an ESC/MCU for the first time, you need to disable the RDP read protection, otherwise it's not possible to update the firmware.  
   - Click on the RDP line and ensure it says read protection off  
   - Wire up the dongle to the "stab pins" (or connectors you are using to connect the dongle to the board - you could solder some wires on but ...) to connect the dongle to the swdio/clk pins.  
   - Connect a ground wire from the 2 dongle gnd pins to -ve on your power supply (psu).  
