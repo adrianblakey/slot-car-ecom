@@ -256,11 +256,11 @@ To use the PWLINK2 you'll either need a Windows computer on which to run the Pow
 
 Power Writer PWLINK2 that has the capability to flash the Artery F421 MCU as well as several other types of MCU. The ESCape32 WiKi mentions the STLINK device however it's only useful for flashing STM MCU's and we are using the Artery. There is more information on the [ESCape32 WiKi about flashing](https://github.com/neoxic/ESCape32/wiki/Installation)
 
-To connect the PWLINK2 to the board we have some connectors that have very fine spring loaded pins on the ends to touch down on the single wire debug pads on the board (look at the picture in the test document in the docs directory to find these on the board). They are fiddly to use and I don;t yet have a link toi where to obtain them. If you find a link to them - please file a defect and tell us :-). Obviously a better flashing solution is needed.
+To connect the PWLINK2 to the board we have some connectors that have very fine spring loaded pins on the ends to touch down on the single wire debug pads on the board (look at the picture in the [test document](https://github.com/adrianblakey/slot-car-ecom/blob/main/docs/Remora1ProductionTests.odt) in the docs directory to find these on the board). They are fiddly to use and I don't yet have a link to where to obtain them. If you find a link to buy them - please file a defect and tell us :-). Obviously a better flashing solution is needed.
 
-PowerWriter has options to flash a board that has existing software on it. If you are flashing for the first time and do not need to reset the option bytes OpenOCD is a good solution. The official [OpenOCD fork for Artery MCU's is in github.](https://github.com/ArteryTek/openocd) I haven't tried using it yet therefore if you do please file a defect and provide some explicit instructions.
+Power Writer has options to flash a board that has existing software on it. If you are flashing for the first time and do not need to reset the option bytes OpenOCD is a good solution. The official [OpenOCD fork for Artery MCU's is in github.](https://github.com/ArteryTek/openocd) I haven't tried using it yet therefore if you do please file a defect and provide some explicit instructions.
 
-Since we built our prototype from an existing drone ESC we used PowerWriter. You can obtain PowerWriter from [this link](https://docs.powerwriter.com/en/docs/powerwriter_for_arm/software/install/) If you run it from Chrome it'll offer to translate from Chinese to English - useful I'd say.
+Since we built our prototype from an existing drone ESC we used Power Writer. You can obtain Power Writer from [this link](https://docs.powerwriter.com/en/docs/powerwriter_for_arm/software/install/) If you run it from Chrome it'll offer to translate from Chinese to English - useful I'd say.
 
 Here's the process we used:
   - Run the software, accept the "Yes" to run in admin mode to access the devices.   
