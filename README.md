@@ -243,11 +243,18 @@ But if you need a more abrupt brake, higher than 75%, try setting it, it won't b
 
 # Flashing
 
-It you want to flash the the part yourself you need a USB device and some connectors to do so. We use a Powerwriter PWLINK2 that has the capability to flash the Artery F421 MCU as well as several other types of MCU. If you want to flash an STM MCU you can use their device the STLINK. There is more information on the [ESCape32 WiKi about flashing](https://github.com/neoxic/ESCape32/wiki/Installation)
+It you want to flash the the part yourself you'll need:
 
-To connect the PWLINK2 to the board we have some connectors that have very fine spring loaded pins on the ends to touch down on the single wire debug pads on the board. (More about these later)
+   - a computer running Windows or Linux.
+   - a USB "dogle" - we use the [PWLINK2.](https://www.powerwriter.com/index/index/products.html?p=5&c=description). Do a search to find them. You can pck one up from EBay for about $12.
+   - connectors to connect the dongle to the board - we use spring loaded pin connectors (pictures and links to come). These probably come from [Farnell](https://uk.farnell.com/) in the UK.
+   - computer software to flash the board using the dongle - for Windows use [Power Writer](https://www.powerwriter.com/index/index/products.html?p=5&c=description) or [the OpenOCD fork for Artery MCU's](https://github.com/ArteryTek/openocd)
 
 To use the PWLINK2 you'll either need a Windows computer on which to run the Powerwriter software, or a Linux/macOS machine to run the OpenOCD software.
+
+Power Writer PWLINK2 that has the capability to flash the Artery F421 MCU as well as several other types of MCU. The ESCape32 WiKi mentions the STLINK device however it's only useful for flashing STM MCU's and we are using the Artery. There is more information on the [ESCape32 WiKi about flashing](https://github.com/neoxic/ESCape32/wiki/Installation)
+
+To connect the PWLINK2 to the board we have some connectors that have very fine spring loaded pins on the ends to touch down on the single wire debug pads on the board. They are fiddly to use and I don;t yet have a link toi where to obtain them. If you find a link to them - please file a defect and tell us :-). Obviously a better flashing solution is needed.
 
 PowerWriter has options to flash a board that has existing software on it. If you are flashing for the first time and do not need to reset the option bytes OpenOCD is a good solution. The official [OpenOCD fork for Artery MCU's is in github.](https://github.com/ArteryTek/openocd) I haven't tried using it yet therefore if you do please file a defect and provide some explicit instructions.
 
