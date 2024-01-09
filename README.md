@@ -188,13 +188,13 @@ To enable 100% drag brake, set the DUTY_DRAG=100  option.
 
 ## The F421 Startup Delay
 
-If there is one downside to our design it might be the choice of MCU. We realize that it has a small start up delay which we think might be caused by memory copying. This article explains something about this issue for other chips https://hackaday.com/2020/10/22/stm32-clones-the-good-the-bad-and-the-ugly/ Search for "boot-up delay" to get to the piece. Artery chips are not the same, although it might be something similar.
+If there is one downside to our design it might be the choice of MCU. When prototyping the design we realized that it has a small start up delay which we think might be caused by memory copying. [This article in HackaDay](https://hackaday.com/2020/10/22/stm32-clones-the-good-the-bad-and-the-ugly/) explains something about this issue for other chips. Search for "boot-up delay" to get to the piece. Artery chips are not the same, although it might be something similar.
 
 The AT32F421 startup delay is measured at ~4.2ms.
 
 After startup, there's a little bit of extra time needed to switch clock source, lock PLL, calibrate ADC, etc. For the STM32G071, it all stays within about 1ms altogether. On the other hand, it takes another extra ~1ms for the AT32F421. Not too bad, but since there's an inevitable extra 4.2ms boot delay, it all comes down to ~5.5ms that Richard witnessed in his analysis.
 
-We chose the Artery F421 MCU because of itys (low) cost and (high) speed so that we had a fast enough clock speed to commutate a 12 pole motor at very high rpm, say 180,000 rpm+. As motor technogology matures we might need to revist this decision and it's an obvious change to the design that should be fairly simple to make. If you do that, please contribute it back.
+We chose the Artery F421 MCU because of its (low) cost and (high) speed so that we had a fast enough clock speed to commutate a 12 pole motor at very high rpm, say 180,000 rpm+. As motor technogology matures we might need to revist this decision and it's an obvious change to the design that should be fairly simple to make. If you do that, please contribute it back.
 
 ## To Start a 10,000kV Motor (say)
 
