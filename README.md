@@ -103,14 +103,15 @@ In order to flash the board you need 2 binary files. Namely:
   - the bootloader
   - the driver
 
-In the bin directory you'll find 
+We have provided the bootloader binary and four different builds of the driver.
 
-  BOOT_FAST-rev2.bin  
- 
-  REMORA-rev9.bin 
-  REMORA_DEF-rev9.bin  
-  REMORA_HI-rev9.bin 
-  REMORA_CLEAVE-rev9.bin  
+In the bin directory you'll find the following binaries: 
+
+    BOOT_FAST-rev2.bin  
+    REMORA-rev9.bin  
+    REMORA_DEF-rev9.bin  
+    REMORA_HI-rev9.bin  
+    REMORA_CLEAVE-rev9.bin  
  
 They are built on Linux from the ESCape32 binaries. 
 
@@ -135,7 +136,7 @@ The REMORA binary has values that we found to work well for our prototype testin
 
 The REMORA_DEF binary defaults the drag (75%) and timing values (4).
 
-The REMORA_HI binary increases the timing for high kV motors, and keeps the drag at 70%.
+The REMORA_HI binary increases the timing for high Kv motors, and keeps the drag at 70%.
 
 The REMORA_CLEAVE binary has increased timing and a higher pwm duty cycle for the drag brake.
 
@@ -215,7 +216,7 @@ After startup, there's a little bit of extra time needed to switch clock source,
 
 We chose the Artery F421 MCU because of its (low) cost and (high) speed so that we had a fast enough clock speed to commutate a 12 pole motor at very high rpm, say 180,000 rpm+. As motor technogology matures we might need to revist this decision and it's an obvious change to the design that should be fairly simple to make. If you do that, please contribute it back.
 
-## To Start a 10,000kV Motor (say)
+## To Start a 10,000Kv Motor (say)
 
 There are several parameters to the ESCape32 firmware that can be adjusted to alter motor function.
 
@@ -241,7 +242,7 @@ The timing setting of n equates to: 3.75 x n degrees
 
 The default is 4, or 15 degrees. The value can be set to between 1 and 7.
 
-In testing, a 1105 10000KV motor desyncs on 3S (S means the number of LiPo RC batteries in series. 2S is about 7.4VDC, 3S is about 11.1VDC, obviously this varies as a battery discharges) with the default settings. Increased timing helps get rid of desyncs, nothing else. The same 10000KV motor with 22.5 degree timing (timing=6) instead of the default 15 degrees (timing=4).
+In testing, a 1105 10000Kv motor desyncs on 3S (S means the number of LiPo RC batteries in series. 2S is about 7.4VDC, 3S is about 11.1VDC, obviously this varies as a battery discharges) with the default settings. Increased timing helps get rid of desyncs, nothing else. The same 10000Kv motor with 22.5 degree timing (timing=6) instead of the default 15 degrees (timing=4).
 
   set timing 6  
   set freq_min 48  
