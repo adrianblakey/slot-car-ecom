@@ -105,24 +105,39 @@ In order to flash the board you need 2 binary files. Namely:
 
 In the bin directory you'll find 
 
-  _BOOT3_FAST-rev2.bin  
-  _SLOTCAR-rev9.bin  
-
-The starting underscore designates them as "experimental". They are built on Linux from the ESCape32 binaries. 
+  BOOT_FAST-rev2.bin  
+ 
+  REMORA-rev9.bin 
+  REMORA_DEF-rev9.bin  
+  REMORA_HI-rev9.bin 
+  REMORA_CLEAVE-rev9.bin  
+ 
+They are built on Linux from the ESCape32 binaries. 
 
 The following build options are used:
 
 For the bootloader:
 
-    add_target(_BOOT3_FAST STM32F0 IO_PA2 USARTv1 FAST_EXIT)
+    add_target(BOOT_FAST STM32F0 IO_PA2 USARTv1 FAST_EXIT IO_AUX)
 
 For the firmware:
 
-    add_target(_SLOTCAR AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70)
+    add_target(REMORA        AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70 IO_AUX)  
+    add_target(REMORA_DEF    AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 IO_AUX)  
+    add_target(REMORA_HI     AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70 IO_AUX TIMING=6)  
+    add_target(REMORA_CLEAVE AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=80 TIMING=6 IO_AUX)  
 
-The boot loader only differs from the ESCape32 distributed bootloader for the Artery by the addition of "FAST_EXIT".
+The boot loader only differs from the ESCape32 distributed bootloader for the Artery by the addition of "FAST_EXIT" and "IO_AUX".
 
 The firmware build is more complex, there's an explanation below which describes the parameters, and Arseny has promised a more complete write up that'll appear in the [ESCape32 WiKi.](https://githib.comneoxic/ESCape32/wiki) We chose build options that are different from the defaults based on our prototype experiments.
+
+The REMORA binary has values that we found to work well for our prototype testing. It changes the duty cycle ramping and pwm frequencies from the default values, and lowers the duty drag 70% - from its default of 75%. The timing default is suitable for all but high Kv motors (see below).
+
+The REMORA_DEF binary defaults the drag (75%) and timing values (4).
+
+The REMORA_HI binary increases the timing for high kV motors, and keeps the drag at 70%.
+
+The REMORA_CLEAVE binary has increased timing and a higher pwm duty cycle for the drag brake.
 
 As long as the firmware has not been compiled with the "ANALOG" option (it hasn't) - the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
 
@@ -130,7 +145,7 @@ There is a complete explanation about how to connect a computer and use the [com
 
 It's also possible to connect a WiFi dongle to the same interface and use a Web browser to make configuration changes. The [WiFi link](https://github.com/neoxic/ESCape32/wiki/WiFiLink) is also described on the github WiKi.
 
-Either you can obtain a "C3 Super Mini board" from ESP32 (they don't seem to yet be available ...) or you can buy a very inexpensive (~$5) S3 board and load a supplied image onto it. 
+Either you can obtain a "C3 Super Mini board" from ESP32 (they don't seem to yet be available ...) or you can buy a very inexpensive (~$5) ESP S3 board and load a supplied image onto it. 
 
 ## Building the Firmware
 
@@ -149,11 +164,14 @@ Setting these targets in the CMakeLists.txt will enable both CLI and Analog thro
 
 In ESCape32/boot/CMakeLists.txt  
   
-    add_target(_BOOT3_FAST STM32F0 IO_PA2 USARTv1 FAST_EXIT)
+    add_target(_BOOT3_FAST STM32F0 IO_PA2 USARTv1 FAST_EXIT IO_AUX)
 
 In ESCape32/CMakeLists.txt  
 
-    add_target(_SLOTCAR AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70)
+    add_target(REMORA        AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70 IO_AUX)  
+    add_target(REMORA_DEF    AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 IO_AUX)  
+    add_target(REMORA_HI     AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70 IO_AUX TIMING=6)  
+    add_target(REMORA_CLEAVE AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=80 TIMING=6 IO_AUX)  
 
 To assign analog throttle to pin 6 on the AT32F421 MCU, use the ANALOG_PIN=6 option.  
 
@@ -168,7 +186,7 @@ For ramping the pulse width modulation (pwm) duty cycle with respect to input vo
 
 There will be a quadratic throttle curve when both voltage level and pwm duty cycle are applied. Motor voltage is 1/4 at 1/2 "throttle" voltage, for example.
 
-To enable 100% drag brake, set the DUTY_DRAG=100  option.
+To enable 100% drag brake say, set the DUTY_DRAG=100  option.
 
      _SLOTCAR = name  
      AT32F421 = specify the Artery F421 mcu  
@@ -183,6 +201,7 @@ To enable 100% drag brake, set the DUTY_DRAG=100  option.
      FREQ_MIN = lowest pwm frequency  
      FREQ_MAX = highest pwm frequency  
      DUTY_DRAG = duty cycle for braking  
+     IO_AUX = detect whether on not full duplex signal IO
 
 # Misc. Notes
 
@@ -204,7 +223,7 @@ When a motor spins up, maximum duty cycle is limited at 10% by default before a 
 
 The default acceleration ramp, DUTY_RATE value is 25 (conservative 2.5%/ms) which leads to 100/2.5=40ms from 0% to 100% throttle. This can be easily increased. The maximum value is 100, i.e. 10%/ms.
 
-It's important that increased DUTY_SPUP has much less effect under load. In a real life situation, a motor with a relatively significant load simply can't reach maximum RPM in just 40ms. Increased acceleration ramping might speed it up a bit, but with a progressively diminishing effect, so care must be taken. On the other hand, too rapid power increase often leads to desyncs in some bigger motors (not our case). That is why the default value of 2.5%/ms is somewhat conservative as a one size fits all value.
+It's important that increased DUTY_SPUP has much less effect under load. In a real life situation, a motor with a relatively significant load simply can't reach maximum RPM in just 40ms. Increased acceleration ramping might speed it up a bit, but with a progressively diminishing effect, so care must be taken. On the other hand, too rapid a power increase often leads to desyncs in some bigger motors (not our case). That is why the default value of 2.5%/ms is somewhat conservative as a one size fits all value.
 
 Why would you want to override DUTY_SPUP? Is it not alright for a motor to sync on moderate power? Why and how would you want to override DUTY_RATE? Is it not alright for a motor to reach its maximum RPM in 40ms (with no load)? If it's not, then what time is okay? 30ms, 20ms? Do the calcualation and go from there.
 
@@ -231,7 +250,7 @@ In testing, a 1105 10000KV motor desyncs on 3S (S means the number of LiPo RC ba
 
 An alternative setting that can be used to limit power based on RPM is duty_ramp (not to be confused with duty_rate). Read the code :-)
 
-You might witness timing effects in a car that won't leave the line smoothly on full power - it'll stutter and "cog". This might be becuase the motor is not under load because the wheels are spinning (!) due to too much torque from the motor - drone motors have a lot of torque - maybe too much. There are some [technical articles ... ](https://www.miniquadtestbench.com/motors-and-torque.html#:~:text=Torque%20itself%20is%20simply%20a,power%20%3D%20torque%20*%20angular%20velocity.) 
+You might witness timing effects in a car that won't leave the line smoothly on full power - it'll stutter and "cog". This might be because the motor is not under load because the wheels are spinning (!) due to too much torque from the motor - drone motors have a lot of torque - maybe too much. There are some [technical articles ... ](https://www.miniquadtestbench.com/motors-and-torque.html#:~:text=Torque%20itself%20is%20simply%20a,power%20%3D%20torque%20*%20angular%20velocity.) 
 
 ## Default Drag Brake Setting 75%
 
@@ -239,7 +258,7 @@ The default value is not a random value. When a motor is driven using complement
 
 When the duty cycle is close to 100%, the energized phases spend most of the time in the driving state (connected to opposite polarities) giving 0% braking. When duty cycle is close to 0%, the energized phases spend most of the time in the braking state (connected to ground) yielding a rough equivalent of 66% drag brake force. Deadtime obviously slightly reduces running brake by introducing an unconnected gap between transitions from driving to braking.
 
-So with the default 75% drag brake the transition from running brake to drag brake is already quite smooth.
+So with a default 75% drag brake setting the transition from running brake to drag brake is quite smooth.
 
 But if you need a more abrupt brake, higher than 75%, try setting it, it won't be smooth.
 
@@ -314,3 +333,23 @@ Here's the process we used:
   - Attach a motor  
   - Power on at say 4v - restraining the motor  
   - This is where it's useful to have a command line or a WiFi dongle attached to enable you to change any compiled-in settings ...
+
+# The WiFi Dongle
+
+## Flashing an ESP 2 WiFi Dongle
+
+Follow the link in the [ESCape32 Wiki](https://github.com/neoxic/ESCape32/wiki/WiFiLink) and install the tooling. Connect the board to a computer using a USB-C cable. Make sure you can see the device in the computer's USB device list. I had issues getting it to appear in Linux and resorted to using a Mac. 
+
+Download the [binary](https://github.com/neoxic/ESCape32-WiFi-Link/releases/tag/1.1) from git. Flash it using this command line:
+ 
+  esptool.py -p /dev/cu.usbmodem01 write_flash 0x00000 ESCape32-WiFi-Link-1.1-ESP32-S2.bin  
+
+Reboot it by plugging/unplugging the USB cable.
+
+Check it's flashed by attaching to its WiFI AP - named: ESCape32-WiFi-Link
+
+Browse: [http://escape32.local](http://escape32.local)
+
+Power it off and follow the ESCapew32 Wiki to connect its signal, ground and power to the Remora, you'll optionally need a diode for full duplex.  
+
+Apply power (at least 4v) to the eCom. Browse the link again - you should see the current setting values.
