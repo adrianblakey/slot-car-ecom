@@ -345,6 +345,14 @@ Download the [binary](https://github.com/neoxic/ESCape32-WiFi-Link/releases/tag/
  
   esptool.py -p /dev/cu.usbmodem01 write_flash 0x00000 ESCape32-WiFi-Link-1.1-ESP32-S2.bin  
 
+Note: You might need to reset it to get it to show up as a device. Do this by:
+
+  Hold the board between thumb and index finger in left hand.
+  Plug the USB-C cable at right
+  With right index finger hold the "0" button in.
+  With thumb, press RST button and relese it.
+  Release the "0" button
+  
 Reboot it by plugging/unplugging the USB cable.
 
 Check it's flashed by attaching to its WiFI AP - named: ESCape32-WiFi-Link
