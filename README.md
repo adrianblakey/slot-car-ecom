@@ -359,6 +359,6 @@ Check it's flashed by attaching to its WiFI AP - named: ESCape32-WiFi-Link
 
 Browse: [http://escape32.local](http://escape32.local)
 
-Power it off and follow the ESCapew32 Wiki to connect its signal, ground and power to the Remora, you'll optionally need a diode for full duplex.  
+Power it off and follow the ESCape32 Wiki to connect its signal, ground and power to the Remora, you'll optionally need a diode for full duplex.  
 
 Apply power (at least 4v) to the eCom. Browse the link again - you should see the current setting values.
