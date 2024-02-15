@@ -339,20 +339,51 @@ Here's the process we used:
 
 ## Flashing an ESP 2 WiFi Dongle
 
-Follow the link in the [ESCape32 Wiki](https://github.com/neoxic/ESCape32/wiki/WiFiLink) and install the tooling. Connect the board to a computer using a USB-C cable. Make sure you can see the device in the computer's USB device list. I had issues getting it to appear in Linux and resorted to using a Mac. 
+Follow the link in the [ESCape32 Wiki](https://github.com/neoxic/ESCape32/wiki/WiFiLink) and install the tooling. Connect the board to a computer using a USB-C cable. Make sure you can see the device in the computer's USB device list. I had issues getting it to appear in Linux and resorted to using a Mac. We have also flashed the device using Windows.
 
-Download the [binary](https://github.com/neoxic/ESCape32-WiFi-Link/releases/tag/1.1) from git. Flash it using this command line:
+Download the [binary](https://github.com/neoxic/ESCape32-WiFi-Link/releases/tag/1.1) from git. 
+
+Before you flash the device connect the device to your computer using a suitable USB-C cable. Then, reset the device by following this process:  
+
+  Hold the board between thumb and index finger in left hand.  
+  Plug the USB-C cable at right.  
+  With right index finger hold the "0" button in.  
+  With thumb, press RST button and relese it.  
+  Release the "0" button.  
+
+On a Mac, use the esptool python program to flash it. Detect the correct USB port by listing the devices before and after plugging it in, using this command from a terminal window:
+
+  ls -alt /dev/cu*
+  
+Plug it in and reset it using the process above. Then from a terminal window run something like this (substitute your device).
  
   esptool.py -p /dev/cu.usbmodem01 write_flash 0x00000 ESCape32-WiFi-Link-1.1-ESP32-S2.bin  
 
-Note: You might need to reset it to get it to show up as a device. Do this by:
+To flash it on Windows download the flash tools from here: https://www.espressif.com/en/support/download/other-tools. Install it by extracting the contents from the zip file. Read the instructions in the associated pdf file entitled "Regular Download Example". It's intuitive to use but it does have a couple of "gotchas".
 
-  Hold the board between thumb and index finger in left hand.
-  Plug the USB-C cable at right
-  With right index finger hold the "0" button in.
-  With thumb, press RST button and relese it.
-  Release the "0" button
-  
+  Attach the device and reset it.  
+  Run the utility.  
+  Complete the popup window:  
+    ChipType ESP32-S2  
+    WorkMode Develop  
+    LoadModu'le USB  
+  Hit OK  
+  Another window is displayed with a single tab lableed SPIDownload  
+  In the top line, navigate to the binary (ESCape32-WiFi-Link-1.1-ESP32-S2.bin) by clicking on the elipise "..."   
+  After the "@" enter "0x00000"  
+  Check the box to the left of the file name - the whole line then should be highlighted in green.  
+  You can just use the default values - or, I like to set SPI Speed to 20MHz. Note clicking on "Default" resets all of these values.  
+  Click on the COM: drop down on the right - you should only see a single COM port listed - select this.  
+  Click "START". The window shows an advancing green bar.
+  The console window should now say something like:  
+    Changing baud rate to 115200  
+    Chnaged  
+    SPI_BOOT_CRYPT_CNT 0  
+    SECURE_BOOT_EN False  
+    Compressed 858688 bytes to 525693...  
+      
+    is stub and send flash finished  
+
 Reboot it by plugging/unplugging the USB cable.
 
 Check it's flashed by attaching to its WiFI AP - named: ESCape32-WiFi-Link
