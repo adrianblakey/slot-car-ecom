@@ -361,28 +361,28 @@ Plug it in and reset it using the process above. Then from a terminal window run
 
 To flash it on Windows download the flash tools from here: https://www.espressif.com/en/support/download/other-tools. Install it by extracting the contents from the zip file. Read the instructions in the associated pdf file entitled "Regular Download Example". It's intuitive to use but it does have a couple of "gotchas".
 
-  Attach the device and reset it.  
-  Run the utility.  
-  Complete the popup window:  
-    ChipType ESP32-S2  
-    WorkMode Develop  
-    LoadModu'le USB  
-  Hit OK  
-  Another window is displayed with a single tab lableed SPIDownload  
-  In the top line, navigate to the binary (ESCape32-WiFi-Link-1.1-ESP32-S2.bin) by clicking on the elipise "..."   
-  After the "@" enter "0x00000"  
-  Check the box to the left of the file name - the whole line then should be highlighted in green.  
-  You can just use the default values - or, I like to set SPI Speed to 20MHz. Note clicking on "Default" resets all of these values.  
-  Click on the COM: drop down on the right - you should only see a single COM port listed - select this.  
-  Click "START". The window shows an advancing green bar.
-  The console window should now say something like:  
-    Changing baud rate to 115200  
-    Chnaged  
-    SPI_BOOT_CRYPT_CNT 0  
-    SECURE_BOOT_EN False  
-    Compressed 858688 bytes to 525693...  
+  - Attach the device and reset it.   
+  - Run the utility.  
+  - Complete the popup window:  
+    - ChipType ESP32-S2   
+    - WorkMode Develop   
+    - LoadModu'le USB   
+  - Hit OK  
+  - Another window is displayed with a single tab lableed SPIDownload  
+  - In the top line, navigate to the binary (ESCape32-WiFi-Link-1.1-ESP32-S2.bin) by clicking on the elipise "..."   
+  - After the "@" enter "0x00000"  
+  - Check the box to the left of the file name - the whole line then should be highlighted in green.  
+  - You can just use the default values - or, I like to set SPI Speed to 20MHz. Note clicking on "Default" resets all of these values.  
+  - Click on the COM: drop down on the right - you should only see a single COM port listed - select this.  
+  - Click "START". The window shows an advancing green bar.  
+  - The console window should now say something like:  
+  - Changing baud rate to 115200  
+      Changed    
+      SPI_BOOT_CRYPT_CNT 0    
+      SECURE_BOOT_EN False    
+      Compressed 858688 bytes to 525693...    
       
-    is stub and send flash finished  
+      is stub and send flash finished    
 
 Reboot it by plugging/unplugging the USB cable.
 
