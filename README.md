@@ -2,7 +2,7 @@
 
 This repo contains a [KiCad](https://www.kicad.org/) design, built binaries (bootloader and firmware) and documentation for a slot car brushless motor electronic commutator or "eCom", also known as an Electronic Speed Controller (ESC).
 
-**Please note this is a prototype design and is in the process of being manufactured. Prototype parts shall be available early in 2024, so it has yet to be tested. Once it is, the information in this repository shall be updated to reflect that change in development status.**
+**Status update: after some flashing mistakes we now feel that this design produces a working part - Yeah! We'll start handing out a few to some early testers in the next week or so.**
 
 All the intellectual property herein is released under a [creative commons license](https://creativecommons.org/share-your-work/cclicenses/#:~:text=Creative%20Commons%20licenses%20give%20everyone,creative%20work%20under%20copyright%20law.). Under the terms of this license you are free to use everything you find here and make your own eCom from the distributed files. We hope that by doing so we'll stimulate innovation and experimentation. If you have suggestions for improvement please file a bug report and tell us about it. We'll provide some other feedback mechanisms as we go on and build a community. Also a good place to get help is the [ESCape32 slot car discord channel.](https://discord.com/invite/aed6xdSM5Y) ESCape32 is the firmware we have used to flash and test this eCom it's also open source and you'll find it on [github too.](https://github.com/neoxic/ESCape32)
 
@@ -107,11 +107,8 @@ We have provided the bootloader binary and four different builds of the driver.
 
 In the bin directory you'll find the following binaries: 
 
-    BOOT_FAST-rev2.bin  
-    REMORA-rev9.bin  
-    REMORA_DEF-rev9.bin  
-    REMORA_HI-rev9.bin  
-    REMORA_CLEAVE-rev9.bin  
+    BOOT3_PA2_AUX_FAST_EXIT-rev2.bin  
+    REMORA-rev0.bin  
  
 They are built on Linux from the ESCape32 binaries. 
 
@@ -119,26 +116,17 @@ The following build options are used:
 
 For the bootloader:
 
-    add_target(BOOT_FAST STM32F0 IO_PA2 USARTv1 FAST_EXIT IO_AUX)
+    add_target(BOOT3_PA2_AUX_FAST_EXIT STM32F0 IO_PA2 USARTv1 FAST_EXIT IO_AUX)  
 
 For the firmware:
 
-    add_target(REMORA        AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70 IO_AUX)  
-    add_target(REMORA_DEF    AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 IO_AUX)  
-    add_target(REMORA_HI     AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70 IO_AUX TIMING=6)  
-    add_target(REMORA_CLEAVE AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=80 TIMING=6 IO_AUX)  
+    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_MIN=400 ANALOG_MAX=1818 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 DUTY_DRAG=70 IO_AUX)  
 
 The boot loader only differs from the ESCape32 distributed bootloader for the Artery by the addition of "FAST_EXIT" and "IO_AUX".
 
-The firmware build is more complex, there's an explanation below which describes the parameters, and Arseny has promised a more complete write up that'll appear in the [ESCape32 WiKi.](https://githib.comneoxic/ESCape32/wiki) We chose build options that are different from the defaults based on our prototype experiments.
+The firmware build is more complex, there's an explanation below which describes the parameters, and Arseny has promised a more complete write up about the build parameters that'll appear in the [ESCape32 WiKi.](https://githib.comneoxic/ESCape32/wiki).
 
 The REMORA binary has values that we found to work well for our prototype testing. It changes the duty cycle ramping and pwm frequencies from the default values, and lowers the duty drag 70% - from its default of 75%. The timing default is suitable for all but high Kv motors (see below).
-
-The REMORA_DEF binary defaults the drag (75%) and timing values (4).
-
-The REMORA_HI binary increases the timing for high Kv motors, and keeps the drag at 70%.
-
-The REMORA_CLEAVE binary has increased timing and a higher pwm duty cycle for the drag brake.
 
 As long as the firmware has not been compiled with the "ANALOG" option (it hasn't) - the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
 
@@ -169,21 +157,18 @@ In ESCape32/boot/CMakeLists.txt
 
 In ESCape32/CMakeLists.txt  
 
-    add_target(REMORA        AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70 IO_AUX)  
-    add_target(REMORA_DEF    AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 IO_AUX)  
-    add_target(REMORA_HI     AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=70 IO_AUX TIMING=6)  
-    add_target(REMORA_CLEAVE AT32F421 DEAD_TIME=66 COMP_MAP=213 ANALOG_MIN=200 ANALOG_MAX=909 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 FREQ_MIN=48 FREQ_MAX=96 DUTY_DRAG=80 TIMING=6 IO_AUX)  
-
+    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_MIN=400 ANALOG_MAX=1818 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 DUTY_DRAG=70 IO_AUX)  
+        
 To assign analog throttle to pin 6 on the AT32F421 MCU, use the ANALOG_PIN=6 option.  
 
 For ramping the pulse width modulation (pwm) duty cycle with respect to input voltage:  
 
   1) Let's assume the minimum input voltage is ~2.2V, and the maximum input voltage is 10V. This corresponds roughly to the smallest useful track voltage to get the board running (where we want to start ramping up the dc), and a top end track voltage at which we want to hit 100% duty cycle (we choose 10V not 12.4 say because often we run low voltage club race nights and still want 100% dc at this maximum voltage)
-  2) For a 10K/1K divider, we get a factor of 1/(10+1)=1/11.  
-  3) 2.2V translates to 2.2/11=200mV, 10V translates to 10/11=909mV on the voltage divider pin, so we set the following options:  
+  2) For a 5K/1K divider, we get a factor of 1/(4.5+1)=1/5.5.  
+  3) 2.2V translates to 2.2/5.5=400mV, 10V translates to 10/5.5=909mV on the voltage divider pin, so we set the following options:  
   
-    ANALOG_MIN=200  
-    ANALOG_MAX=909  
+    ANALOG_MIN=400  
+    ANALOG_MAX=1818  
 
 There will be a quadratic throttle curve when both voltage level and pwm duty cycle are applied. Motor voltage is 1/4 at 1/2 "throttle" voltage, for example.
 
@@ -192,9 +177,9 @@ To enable 100% drag brake say, set the DUTY_DRAG=100  option.
      _SLOTCAR = name  
      AT32F421 = specify the Artery F421 mcu  
      DEAD_TIME  
-     COMP_MAP  
-     ANALOG_MIN = the voltage at which the pwm duty cycle starts ramping up 200 is about 2.2VDC  
-     ANALOG_MAX = the voltage at which the duty cycle reaches 99% = 909 is about 10VDC  
+     COMP_MAP = Comparator map. Maps the A/B/C (U/V/W) phase back emf signals to mcu pins PA0, PA4, PA5, namely 1, 2, 3 
+     ANALOG_MIN = the voltage at which the pwm duty cycle starts ramping up 400 is about 2.2VDC  
+     ANALOG_MAX = the voltage at which the duty cycle reaches 99% = 1818 is about 10VDC  
      ANALOG_PIN  
      ARM  
      VOLUME=0 turn off sounds - the board does not have sound :-)
