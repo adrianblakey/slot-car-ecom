@@ -126,7 +126,7 @@ The boot loader only differs from the ESCape32 distributed bootloader for the Ar
 
 The firmware build is more complex, there's an explanation below which describes the parameters, and Arseny has promised a more complete write up about the build parameters that'll appear in the [ESCape32 WiKi.](https://githib.comneoxic/ESCape32/wiki).
 
-The REMORA binary has values that we found to work well for our prototype testing. It changes the duty cycle ramping and pwm frequencies from the default values, and lowers the duty drag 70% - from its default of 75%. The timing default is suitable for all but high Kv motors (see below).
+The REMORA binary has values that we found to work well for our prototype testing. It changes the duty cycle ramping and pwm frequencies from the default values, and lowers the duty drag 70% - from its default of 75%. The timing default is suitable for all but high K<sub>v</sub> motors (see below).
 
 As long as the firmware has not been compiled with the "ANALOG" option (it hasn't) - the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
 
@@ -226,7 +226,7 @@ The timing setting of n equates to: 3.75 x n degrees
 
 The default is 4, or 15 degrees. The value can be set to between 1 and 7.
 
-In testing, a 1105 10000Kv motor desyncs on 3S (S means the number of LiPo RC batteries in series. 2S is about 7.4VDC, 3S is about 11.1VDC, obviously this varies as a battery discharges) with the default settings. Increased timing helps get rid of desyncs, nothing else. The same 10000Kv motor with 22.5 degree timing (timing=6) instead of the default 15 degrees (timing=4).
+In testing, a 1105 10000K<sub>v</sub> motor desyncs on 3S (S means the number of LiPo RC batteries in series. 2S is about 7.4VDC, 3S is about 11.1VDC, obviously this varies as a battery discharges) with the default settings. Increased timing helps get rid of desyncs, nothing else. The same 10000K<sub>v</sub> motor with 22.5 degree timing (timing=6) instead of the default 15 degrees (timing=4).
 
   set timing 6  
   set freq_min 48  
