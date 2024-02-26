@@ -201,8 +201,7 @@ After startup, there's a little bit of extra time needed to switch clock source,
 
 We chose the Artery F421 MCU because of its (low) cost and (high) speed so that we had a fast enough clock speed to commutate a 12 pole motor at very high rpm, say 180,000 rpm+. As motor technogology matures we might need to revist this decision and it's an obvious change to the design that should be fairly simple to make. If you do that, please contribute it back.
 
-## To Start a 10,000K~v~ Motor (say)
-
+## To Start a 10,000+K<sub>v</sub> Motor (say)
 There are several parameters to the ESCape32 firmware that can be adjusted to alter motor function.
 
 When a motor spins up, maximum duty cycle is limited at 10% by default before a full synchronized revolution is reached, i.e. 6 sync'ed commutations have commenced. This value can be overridden by the DUTY_SPUP build option. The maximum value is 25%. Please note that allowing even higher DUTY_SPUP values is possible, but generally it is dangerous as a stuck rotor will lead to instant motor overheating. Higher values also degrade smooth spinup most of the time because the motor tends to desync right away and stutters longer. Another option is FREQ_MIN which is 24kHz by default. Setting FREQ_MIN to 48 can help reduce current ripple.
