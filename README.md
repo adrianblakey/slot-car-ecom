@@ -378,7 +378,7 @@ Power it off and follow the ESCape32 Wiki to connect its signal, ground and powe
 
 Apply power (at least 4v) to the eCom. Browse the link again - you should see the current setting values.
 
-##Connecting the dongle to the Remora
+## Connecting the dongle to the Remora
 
 If you look very closely at the Remora you'll see a very small 4 pin connector on the top of the board. This exports 4 connections, namely:
 
