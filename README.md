@@ -103,14 +103,14 @@ In order to flash the board you need 2 binary files. Namely:
   - the bootloader
   - the driver
 
-We have provided the bootloader binary and four different builds of the driver.
+We have provided the bootloader binary and a build of the driver. You only really need one binary, because once it's installed you can change its parameters using a dongle. If a updated binary is released this can also be installed using the dongle and a browser.
 
 In the bin directory you'll find the following binaries: 
 
     BOOT3_PA2_AUX_FAST_EXIT-rev2.bin  
     REMORA-rev0.bin  
  
-They are built on Linux from the ESCape32 binaries. 
+They are built on Linux from the ESCape32 sources. 
 
 The following build options are used:
 
@@ -252,7 +252,7 @@ But if you need a more abrupt brake, higher than 75%, try setting it, it won't b
 It you want to flash the the part yourself you'll need:
 
    - a computer running Windows or Linux.
-   - a USB "dongle" - we use the [PWLINK2.](https://www.powerwriter.com/index/index/products.html?p=5&c=description). Do a search to find them. You can pck one up from EBay for about $12.
+   - a USB serial interface or "dongle" (different from the WiFi dongle to change the operating parameters) - we use the [PWLINK2.](https://www.powerwriter.com/index/index/products.html?p=5&c=description). Do a search to find them. You can pck one up from EBay for about $12.
    - connectors to connect the dongle to the board - we use spring loaded pin connectors (pictures and links to come). These probably come from [Farnell](https://uk.farnell.com/) in the UK.
    - computer software to flash the board using the dongle - for Windows use [Power Writer](https://www.powerwriter.com/index/index/products.html?p=5&c=description) or [the OpenOCD fork for Artery MCU's](https://github.com/ArteryTek/openocd)
 
@@ -377,3 +377,14 @@ Browse: [http://escape32.local](http://escape32.local)
 Power it off and follow the ESCape32 Wiki to connect its signal, ground and power to the Remora, you'll optionally need a diode for full duplex.  
 
 Apply power (at least 4v) to the eCom. Browse the link again - you should see the current setting values.
+
+##Connecting the dongle to the Remora
+
+If you look very closely at the Remora you'll see a very small 4 pin connector on the top of the board. This exports 4 connections, namely:
+
+   - +3.3 vdc
+   - GND
+   - PA1
+   - PA15
+
+These need to be connected to the eqivalent pins of the ESP S2 or WiFi link. 
