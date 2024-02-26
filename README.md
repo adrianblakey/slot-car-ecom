@@ -174,7 +174,7 @@ There will be a quadratic throttle curve when both voltage level and pwm duty cy
 
 To enable 100% drag brake say, set the DUTY_DRAG=100  option.
 
-     _SLOTCAR = name  
+     REMORA = name  
      AT32F421 = specify the Artery F421 mcu  
      DEAD_TIME  
      COMP_MAP = Comparator map. Maps the A/B/C (U/V/W) phase back emf signals to mcu pins PA0, PA4, PA5, namely 1, 2, 3 
@@ -201,7 +201,7 @@ After startup, there's a little bit of extra time needed to switch clock source,
 
 We chose the Artery F421 MCU because of its (low) cost and (high) speed so that we had a fast enough clock speed to commutate a 12 pole motor at very high rpm, say 180,000 rpm+. As motor technogology matures we might need to revist this decision and it's an obvious change to the design that should be fairly simple to make. If you do that, please contribute it back.
 
-## To Start a 10,000Kv Motor (say)
+## To Start a 10,000K~v~ Motor (say)
 
 There are several parameters to the ESCape32 firmware that can be adjusted to alter motor function.
 
