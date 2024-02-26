@@ -1,4 +1,4 @@
-# Adrian and Richard's (AART's) Slot Car eCom
+# The Remora - Slot Car eCom
 
 This repo contains a [KiCad](https://www.kicad.org/) design, built binaries (bootloader and firmware) and documentation for a slot car brushless motor electronic commutator or "eCom", also known as an Electronic Speed Controller (ESC).
 
