@@ -134,7 +134,7 @@ There is a complete explanation about how to connect a computer and use the [com
 
 It's also possible to connect a WiFi dongle to the same interface and use a Web browser to make configuration changes. The [WiFi link](https://github.com/neoxic/ESCape32/wiki/WiFiLink) is also described on the github WiKi.
 
-Either you can obtain a "C3 Super Mini board" from ESP32 (they don't seem to yet be available ...) or you can buy a very inexpensive (~$5) ESP S3 board and load a supplied image onto it. 
+Either you can obtain a "WiFi Link" board from Arseny, or you can buy a very inexpensive (~$5) ESP S3 board from Amazon or Ebay and flash a supplied image onto it. The only significant difference between the two is some additional protection circuitry on the WiFi Link board. Until we can provide some similary interface circuit - you must **limit the supplied voltage to the Remora to 3.3v if you have the ESP S2 dongle attached**.
 
 ## Building the Firmware
 
