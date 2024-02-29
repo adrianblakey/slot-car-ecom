@@ -109,6 +109,7 @@ In the bin directory you'll find the following binaries:
 
     BOOT3_PA2_AUX_FAST_EXIT-rev2.bin  
     REMORA-rev0.bin  
+    REMORA-rev10.bin  
  
 They are built on Linux from the ESCape32 sources. 
 
@@ -120,15 +121,18 @@ For the bootloader:
 
 For the firmware:
 
-    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_MIN=400 ANALOG_MAX=1818 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 DUTY_DRAG=70 IO_AUX)  
+    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_MIN=400 ANALOG_MAX=1818 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 DUTY_DRAG=70 IO_AUX)  # rev0
+    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218) # rev10
 
 The boot loader only differs from the ESCape32 distributed bootloader for the Artery by the addition of "FAST_EXIT" and "IO_AUX".
 
 The firmware build is more complex, there's an explanation below which describes the parameters, and Arseny has promised a more complete write up about the build parameters that'll appear in the [ESCape32 WiKi.](https://githib.comneoxic/ESCape32/wiki).
 
-The REMORA binary has values that we found to work well for our prototype testing. It changes the duty cycle ramping and pwm frequencies from the default values, and lowers the duty drag 70% - from its default of 75%. The timing default is suitable for all but high K<sub>v</sub> motors (see below).
+The REMORA-rev0 binary is built from yet to be checked in sources for ESCape32 Rev 10, it has values that we found to work well for our prototype testing. It changes the duty cycle ramping between ~2.2v and 10v and pwm frequencies from the default values, and lowers the duty drag 70% - from its default of 75%. The timing default is suitable for all but high K<sub>v</sub> motors (see below).
 
-As long as the firmware has not been compiled with the "ANALOG" option (it hasn't) - the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
+The REMORA-rev10 binary is built from yet to be checked in sources for ESCape32 Rev 10, it has default values and no ramping with a minimum analog voltage of ~1.1v to ~12.2v. We have been using this for our prototype testing. To use this you'll probably need to attach a WiFi dongle to eCom and set some specific values to suit your precise needs.
+
+The firmware has not been compiled with the "ANALOG" option so that the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
 
 There is a complete explanation about how to connect a computer and use the [command line interface (CLI) on the ESCape32 WiKi.](https://github.com/neoxic/ESCape32/wiki/WiFiLink)
 
@@ -188,6 +192,30 @@ To enable 100% drag brake say, set the DUTY_DRAG=100  option.
      FREQ_MAX = highest pwm frequency  
      DUTY_DRAG = duty cycle for braking  
      IO_AUX = detect whether on not full duplex signal IO
+
+The REMORA-REV10 binary is slightly different. It's built uing the following target in the CMakeLists.txt file
+
+    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)   
+
+The ANALOG_MIN is set to a minimum voltage of about 1.1v, which is below the voltage the board theoretically powers up. You'll note that ANALOG_MIN and ANALOG_MAX need to be compiled in to the firmware and are not setable parameters. 
+
+If for example you want the eCom to always run at 100% duty cycle from its starting voltage with no ramp up in the duty cycle, then you need to attach a WiFi link dongle to set and save duty_min to 100, this is the first non-zero duty cycle. When throttle becomes non-zero (voltage above 1.1V in our case), it's applied after synchronization. If you wanted 100% throttle at every voltage, change throt_set=100. See https://github.com/neoxic/ESCape32/wiki/Settings#throt_set-0 Note: throt_set is the minimum throttle value in analog mode and it's what ANALOG_MIN translates to. When you set it to some non-zero value, you'll get that throttle value at ANALOG_MIN voltages and lower. 
+
+We ususally run in analog mode set by INPUT_MODE=1. In digital mode, throt_set is just an initial value that the throttle is set to upon startup. If it's not changed (say, you have no input), it remains at that value. Hence you can get fixed throttle mode out of it.
+
+In analog mode, it also serves as the minimum throttle value. Thus you can get two distinct modes - when you have zero-throttle and when you don't. 
+
+When you connect via a WiFi link and change the throttle using a slider control in the browser, it disables analog throttle. That is to make it possible to save settings.
+
+Once a throttle value is established, duty_min and duty_max start playing a role mapping throttle [1...2000] to the duty cycle.
+
+In analog mode, it also serves as the minimum throttle value. Thus you can get two distinct modes - when you have zero-throttle and when you don't.
+
+Also note that DUTY_DRAG is defaulted to 0. Therefore if you want a specific brake setting you'll need to access the firmware through the WiFi link dongle and set it.
+
+Normally you can't disable arming (arm=0) in analog mode (unless you build with ANALOG which disables that). This is because it becomes impossible to distinguish between digital high level and analog high level. But in with ANALOG_PIN overriding the default analog throttle pin (the same as the digital input pin), it becomes possible.
+
+ANALOG_PIN forces the firmware to sample analog throttle values on a different pin. By default, it's the same pin, e.g. PA2 or PA6. However in our case, PA2 is digital input and PA6 is analog. Since they are separated, there's no aforementioned problem, hence no there is no restriction on arming.
 
 # Misc. Notes
 
