@@ -1,0 +1,5 @@
+Comment,Designator,Footprint,LCSC Part #
+1µF 50V,"C1, C2",603,C15849
+Conn_02x05_Odd_Even,"J1, J3",C843271_PinSocket_2x05_P2.54mm_Vertical_SMD_OddEven,C843271
+Conn_01x04,J2,HDG 1x04 P0.6 Horizontal,C509242
+LDL1117S33R_SOT223,U1,SOT-223-3_TabPin2,C435835
