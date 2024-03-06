@@ -2,13 +2,11 @@
 
 This repo contains a [KiCad](https://www.kicad.org/) design, built binaries (bootloader and firmware) and documentation for a slot car brushless motor electronic commutator or "eCom", also known as an Electronic Speed Controller (ESC).
 
-**Status update: after some flashing mistakes we now feel that this design produces a working part - Yeah! We'll start handing out a few to some early testers in the next week or so.**
-
 All the intellectual property herein is released under a [creative commons license](https://creativecommons.org/share-your-work/cclicenses/#:~:text=Creative%20Commons%20licenses%20give%20everyone,creative%20work%20under%20copyright%20law.). Under the terms of this license you are free to use everything you find here and make your own eCom from the distributed files. We hope that by doing so we'll stimulate innovation and experimentation. If you have suggestions for improvement please file a bug report and tell us about it. We'll provide some other feedback mechanisms as we go on and build a community. Also a good place to get help is the [ESCape32 slot car discord channel.](https://discord.com/invite/aed6xdSM5Y) ESCape32 is the firmware we have used to flash and test this eCom it's also open source and you'll find it on [github too.](https://github.com/neoxic/ESCape32)
 
-There is obviously nothing stopping you from making your own copies of this eCom, calling it your own and selling it as a finished product. If you want to do that we only ask that you negotiate a small royalty payment with us. If it's out there in the marketplace we'll obviously know about it becuase it's a small world - so just be up front about it. Some income from this effort would help to defray our development costs and any extra income will be put back into the hobby and improving this part.
+There is nothing stopping you from making your own copies of this eCom, calling it your own and selling it as a finished product. If you want to do that we only ask that you negotiate a small royalty payment with us. If it's out there in the marketplace we'll obviously know about it because it's a small world - so just be up front about it. Some income from this effort would help to defray our development costs and any extra income will be put back into the hobby and improving this part.
 
-We also ask that nothing here is used for military purposes. This applies to the ESCape32 firmware too.
+We also ask that nothing here is used for military purposes. This also applies to the ESCape32 firmware.
 
 # A Bit of Background
 
@@ -23,47 +21,6 @@ It's closed - despite the [AM32 firmware](https://github.com/AlkaMotors/AM32-Mul
 The hardware design is good however we wanted something that could respond faster, and operate from a lower starting voltage, and operate at higher voltages and current. These capabilities are all captured in the [requirements document](https://github.com/adrianblakey/slot-car-ecom/blob/main/docs/slot-car-ecom-requirements.ods) that you'll find in the "docs" directory.
 
 Its cost is still a little too much for most people. The cost of electronics is a function of the parts' cost. A good rule of thumb is that the final cost of an assembled board is about 4 times the constituent parts' cost. Therefore, by making informed parts choices that might say save a cent or two while still optimizing performance, a much more cost effective design can be produced. We think we have done this.
-
-# The Files
-
-In this repo you'll find the complete set of KiCad files for the design in the directory AART11-2023-12-13_115145. We chose KiCad because it's freely available and there's plenty of information to describe how to use it.
-
-We installed a plugin into our KiCad that produces output (Gerbers and bom) that can be sent to JLCPCB to manufacture the part. (If I remember correctly) there is one defect in this that swaps the columns around in one of the csv files it produces (I'll be more specific about this in a longer post). These files are also checked in to the tree in "production".
-
-If you run the design through the design rules checker it'll give warning messages. I was always told "a warning is an error" - and needs to be addressed. Despite this advice you may ignore them - unless of course you'd like to provide us with a fix that'll correct the issues :-) 
-
-There are 2 types of vias used in the pcb design. They differ in size to differentiate one type from the other. We asked JLCPCB about this before submitting the design because their order input only allows you to specify one type of via. 
-
-The solution to this is to annotate the order in the PCB remarks field with something like: "0.3mm via holes are standard through-hole vias, namely: "Via Covering" Tented.
-The 11 vias with 0.35mm holes are the via-in-pad ones, namely: "Via Covering" Epoxy Filled & Capped".
-
-You also should select the option: "Confirm Production file" - as this puts the information in front of a real person for review.
-
-The AART is our partnership acronym. In the same way Pete/Bob/Richard called theirs SBM - we've given ours the catchy name: Adrian And Richard's Technology (AART) and it reflects the fact that it really is a work of art. Since Arseny (of ESCape32) had a large influence in the design it is also be an acronym for "Adrian, Arseny, (and) Richard's Technology".
-
-The board itself is called a Remora. Our first prototype was called this because it was a little add-on board for a commercial drone ESC (HAKRC BLHeli_32 Bit 35A 2-5S ESC) that clung to the top - a bit like the [remora fish](https://en.wikipedia.org/wiki/Remora) clings to a shark. Richard liked the name and persuaded me to keep it for the product - cause it sort of stuck and sticks to a slot car chassis I suppose. It's printed on the PCB - if you don't like it - well I hope you know what to do :-)
-
-There is also a [binary directory called "bin"](https://github.com/adrianblakey/slot-car-ecom/tree/main/bin) in git in which you'll find ESCape32 binaries built specifically for the part. There is a custom bootloader BOOT3_PA2_AUX_FAST_EXIT-rev2.bin and firmware build REMORA-rev0.bin.
-
-You can download the sources of ESCape32 and build them yourself assuming you have a suitable machine on which to do so. We build ours on an Arch Linux laptop - it only takes a few seconds to do. There are other Linux distros. that'll work fine and (guessing ... you can either: install cygwin on Windows or the [Linux Subsystem for Windows](https://learn.microsoft.com/en-us/windows/wsl/install) or suitable packages using brew on MacOS). 
-
-Note: the CMake is configured to use the gnu arm cross compiler and it assumes it's running on an Intel machine despite the binary targets being for an arm binary. I made a half hearted effort to try to get it to run on a Apple Silcon Mac without the cross compiler - but failed. I am told it can run be run in a [UTM](https://mac.getutm.app/) virtual machine on MacOS - but I haven't tried yet. If you have success doing this we'd like instructions - please file a defect and tell us how, or submit a pull request in git.
-
-# Obtaining One For Yourself
-
-If you want one of these - you have a few choices, namely:
-
-  1. Ask us (nicely) for one.
-  2. Make one yourself.
-  3. And hopefully sometime in the future - call your favorite slot car parts vendor - maybe Betta in the UK, and maybe do-slot in Germany and in the USA(?)
-
-We should have a few flashed, tested and inventoried for our own use and to give to friends and family (neither Richard nor I have family that slot car race :-) - so I suppose half of that is a lie) If you are very nice to us and you are willing to be a tester and provide constructive feedback and suggestions I am pretty sure you'll get one. At some point the supply will run out and we might well have moved on to working on V2, V3 ... (there will be innovations).
-
-You can make one yourself. Everything is here to do that. It is not hard to do and you'll have some fun doing it and learn some new skills. If you want to make a lot and sell them - please do ... The basic steps to do so are: create an account on JLCPCB, upload some files from the production directory, possibly order missing parts, wait a while, optionally build a version of the firmware, flash the part with your own build or the one we supply, test it, put it in a chassis.
-
-We hope that some of the vendors want to get involved and see an opportunity to make and sell these at a profit. As you'll see there is some effort and cost involved for them to do that, so expect to pay a premium for a finished item. There's also maybe an opportunity say to create a third party marketplace for custom binaries, an eCom tester, a flashing jig etc.
-
-Once I can figure out how to create a proper WiKi on git - we'll provide some more detailed instructions for doing all this.
 
 # Slot Car Racing
 
@@ -81,9 +38,76 @@ We hope by providing an open solution for the latter we've moved things along a 
 
 Now, all we need (lol) are some open designs for motors and chassis :-)
 
-# ESCape32 Firmware
+# Naming
 
-We use the ESCape32 firmware to program the device. There are a number of good reasons for doing so, namely:
+The AART is our partnership acronym. In the same way Pete/Bob/Richard called theirs SBM - we've given ours the catchy name: Adrian And Richard's Technology (AART) and it reflects the fact that it really is a work of art. Since Arseny (of ESCape32) had a large influence in the design it is also be an acronym for "Adrian, Arseny, (and) Richard's Technology".
+
+The board itself is called a Remora1 - Remora version 1. Our first prototype was called "Remora" because it was a little add-on board for a commercial drone ESC (HAKRC BLHeli_32 Bit 35A 2-5S ESC) that clung to the top - a bit like the [remora fish](https://en.wikipedia.org/wiki/Remora) clings to a shark. Richard liked the name and persuaded me to keep it for the product - cause it sort of stuck and sticks to a slot car chassis I suppose. It's printed on the PCB - if you don't like it - well I hope you know what to do :-)
+
+# Github Repo Organization
+
+In this repo. you'll find:  
+
+  [AART11-2023-12-13_115145](https://github.com/adrianblakey/slot-car-ecom/tree/main/AART11-2023-12-13_115145) - A KiCad design for the board  
+  [KiCad_ESP32Mini_interface](https://github.com/adrianblakey/slot-car-ecom/tree/main/KiCad_ESP32Mini_interface) - A KiCad design for an adapter board  
+  [Simetrix_simulation](https://github.com/adrianblakey/slot-car-ecom/tree/main/Simetrix_simulation) - A Simetrix simulation for the board
+  [bin](https://github.com/adrianblakey/slot-car-ecom/tree/main/bin) - Firmware binaries (bootloader and commutator)
+  [docs](https://github.com/adrianblakey/slot-car-ecom/tree/main/docs) - Documentation
+
+# The Board Design Files
+
+In this repo you'll find the complete set of KiCad files for the design in the directory AART11-2023-12-13_115145. We chose KiCad because it's freely available and there's plenty of information to describe how to use it.
+
+It's quite simple to send this automated design to the JLCPCB to get the boards manufactured. The process to generate the files to send to them is: 
+
+  Download and install KiCad on a computer.   
+  Open the software and use the plugin installer to install "Fabrication Toolkit".  
+  Use git to clone the slot-car-ecom git repo.  
+  Navigate to the KiCad files.  
+  Click on the project file to open them in KiCad. 
+  Open the pcb editor.
+  Use the Fabrication Toolkit icon to generate the gerber, bom and placement files.
+
+ Note: There are a couple of defects in this plugin that incorrectly swaps the columns around in the placement and bom files. The corrected files are checked in to repo. in the "production" directory.
+
+If you run the design through the design rules checker it'll give warning messages. I was always told "a warning is an error" - and needs to be addressed. Despite this advice you may ignore them - unless of course you'd like to provide us with a fix that'll correct the issues :-) 
+
+There are 2 types of vias used in the pcb design. They differ in size to differentiate one type from the other. We asked JLCPCB about this before submitting the design because their order input only allows you to specify one type of via. 
+
+The solution to this is to annotate the order in the PCB remarks field with something like: "0.3mm via holes are standard through-hole vias, namely: "Via Covering" Tented.
+The 11 vias with 0.35mm holes are the via-in-pad ones, namely: "Via Covering" Epoxy Filled & Capped".
+
+You also should select the option: "Confirm Production file" - as this puts the information in front of a real person for review.
+
+We chose to fabricate a 1mm rather than the standard 1.6mm board.
+
+## Binaries 
+
+There is also a [binary directory called "bin"](https://github.com/adrianblakey/slot-car-ecom/tree/main/bin) in git in which you'll find ESCape32 binaries built specifically for the part. There is a custom bootloader BOOT3_PA2_AUX_FAST_EXIT-rev2.bin and firmware build REMORA-rev0.bin.
+
+You can download the sources of ESCape32 and build them yourself assuming you have a suitable machine on which to do so. We build ours on an Arch Linux laptop - it only takes a few seconds to do. There are other Linux distros. that'll work fine and (guessing ... you can either: install cygwin on Windows or the [Linux Subsystem for Windows](https://learn.microsoft.com/en-us/windows/wsl/install) or suitable packages using brew on MacOS). 
+
+Note: the CMake is configured to use the gnu arm cross compiler and it assumes it's running on an Intel machine despite the binary targets being for an arm binary. I made a half hearted effort to try to get it to run on a Apple Silcon Mac without the cross compiler - but failed. I am told it can run be run in a [UTM](https://mac.getutm.app/) virtual machine on MacOS - but I haven't tried yet. If you have success doing this we'd like instructions - please file a defect and tell us how, or submit a pull request in git.
+
+# Obtaining One For Yourself
+
+Once we get past some initial testing, if you want one of these - you have a few choices, namely:
+
+  1. Ask us (nicely) for one.
+  2. Make one yourself.
+  3. And hopefully sometime in the future - call your favorite slot car parts vendor - maybe Betta in the UK, and maybe do-slot in Germany and in the USA(?)
+
+We should have a few flashed, tested and inventoried for our own use and to give to friends and family (neither Richard nor I have family that slot car race :-) - so I suppose half of that is a lie) If you are very nice to us and you are willing to be a tester and provide constructive feedback and suggestions I am pretty sure you'll get one. At some point the supply will run out and we might well have moved on to working on V2, V3 ... (there will be innovations).
+
+You can make one yourself. Everything is here to do that. It is not hard to do and you'll have some fun doing it and learn some new skills. If you want to make a lot and sell them - please do ... The basic steps to do so are: create an account on JLCPCB, upload some files from the production directory, possibly order missing parts, wait a while, optionally build a version of the firmware, flash the part with your own build or the one we supply, test it, put it in a chassis.
+
+We hope that some of the vendors want to get involved and see an opportunity to make and sell these at a profit. As you'll see there is some effort and cost involved for them to do that, so expect to pay a premium for a finished item. There's also maybe an opportunity say to create a third party marketplace for custom binaries, an eCom tester, a flashing jig etc.
+
+Once I can figure out how to create a proper WiKi on git - we'll provide some more detailed instructions for doing all this.
+
+# The ESCape32 Firmware
+
+The Remora1 is programmed using the ESCape32 firmware. There are a number of good reasons for doing so, namely:
 
   - Writing a brushless motor driver and getting it right, is difficult.
   - The skills to do it are hard to find and acquire.
@@ -91,10 +115,12 @@ We use the ESCape32 firmware to program the device. There are a number of good r
   - It's supported and maintained.
   - There is a community and Arseny specifically created a [Discord channel for slot-cars](https://discord.com/channels/1103745257046278144/1151565789984469144) (yeah).
   - It's lovely, readable code.
-  - We can't say enough good things about Arseny, its developer, who's been helpful and supportive of our efforts.
-  - It's fully configurable from a command line and dongle so you do not need to compile custom binaries to make configuration changes.
+  - We can't say enough good things about Arseny, its developer, who is helpful and supportive of our efforts.
+  - It's fully configurable from a command line and WiFi dongle so you do not need to compile custom binaries to make configuration changes - once it's flashed.
 
-The stock ESCape32 firmware for the Artery should run on the board. In comparison to a commercial drone ESC, the board has some additional features that are not normally found on other ESC's - like the reverse polarity protection, and low voltage operation - overkill for a drone ESC. But never the less it should run :-)
+There are no code changes or patches to the ESCape32 firmware to run the Remora1. Although the ESCape32 build for it has a specific configuration as it does for other drone ESC's.
+
+In comparison to a commercial drone ESC, the board has some additional features that are not normally found on other ESC's - like the reverse polarity protection, and low voltage operation - that are overkill for a drone ESC. Interestingly, it also supports a digital interface that could theorectically allow it to be used in combination with a controller.
 
 ## Provided Binaries
 
@@ -103,12 +129,11 @@ In order to flash the board you need 2 binary files. Namely:
   - the bootloader
   - the driver
 
-We have provided the bootloader binary and a build of the driver. You only really need one binary, because once it's installed you can change its parameters using a dongle. If a updated binary is released this can also be installed using the dongle and a browser.
+We have provided the bootloader binary and a build of the driver. You only really need one binary, because once it's installed you can change its parameters using a WiFi Link dongle. If a updated binary is released this can also be installed using the dongle and a browser.
 
 In the bin directory you'll find the following binaries: 
 
-    BOOT3_PA2_AUX_FAST_EXIT-rev2.bin  
-    REMORA-rev0.bin  
+    BOOT3_PA2_AUX_FAST_EXIT-rev2.bin   
     REMORA-rev10.bin  
  
 They are built on Linux from the ESCape32 sources. 
@@ -117,20 +142,16 @@ The following build options are used:
 
 For the bootloader:
 
-    add_target(BOOT3_PA2_AUX_FAST_EXIT STM32F0 IO_PA2 USARTv1 FAST_EXIT IO_AUX)  
+    add_target(BOOT3_PA2_XF STM32F0 AT32F4 IO_PA2 IO_AUX FAST_EXIT) 
 
 For the firmware:
 
-    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_MIN=400 ANALOG_MAX=1818 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 DUTY_DRAG=70 IO_AUX)  # rev0
-    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218) # rev10
-
-The boot loader only differs from the ESCape32 distributed bootloader for the Artery by the addition of "FAST_EXIT" and "IO_AUX".
+    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)
 
 The firmware build is more complex, there's an explanation below which describes the parameters, and Arseny has promised a more complete write up about the build parameters that'll appear in the [ESCape32 WiKi.](https://githib.comneoxic/ESCape32/wiki).
 
-The REMORA-rev0 binary is built from yet to be checked in sources for ESCape32 Rev 10, it has values that we found to work well for our prototype testing. It changes the duty cycle ramping between ~2.2v and 10v and pwm frequencies from the default values, and lowers the duty drag 70% - from its default of 75%. The timing default is suitable for all but high K<sub>v</sub> motors (see below).
 
-The REMORA-rev10 binary is built from yet to be checked in sources for ESCape32 Rev 10, it has default values and no ramping with a minimum analog voltage of ~1.1v to ~12.2v. We have been using this for our prototype testing. To use this you'll probably need to attach a WiFi dongle to eCom and set some specific values to suit your precise needs.
+The REMORA-rev10 binary is built from sources for ESCape32 Rev 10, it has default values and no ramping with a minimum analog voltage of ~1.1v to ~12.2v. We have been using this for our prototype testing. To use this you'll probably need to attach a WiFi dongle to eCom and set some specific values to suit your precise needs.
 
 The firmware has not been compiled with the "ANALOG" option so that the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
 
@@ -140,7 +161,7 @@ It's also possible to connect a WiFi dongle to the same interface and use a Web 
 
 Either you can obtain a "WiFi Link" board from Arseny, or you can buy a very inexpensive (~$5) ESP S3 board from Amazon or Ebay and flash a supplied image onto it. The only significant difference between the two is some additional protection circuitry on the WiFi Link board. Until we can provide some similary interface circuit - you must **limit the supplied voltage to the Remora to 3.3v if you have the ESP S2 dongle attached**.
 
-## Building the Firmware
+# Building the Firmware
 
 If you want to build and flash your own version of the firmware the best place to study the settings is here:
 
@@ -157,51 +178,63 @@ Setting these targets in the CMakeLists.txt will enable both CLI and Analog thro
 
 In ESCape32/boot/CMakeLists.txt  
   
-    add_target(_BOOT3_FAST STM32F0 IO_PA2 USARTv1 FAST_EXIT IO_AUX)
+    add_target(BOOT3_PA2_XF STM32F0 AT32F4 IO_PA2 IO_AUX FAST_EXIT)  
 
 In ESCape32/CMakeLists.txt  
 
-    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_MIN=400 ANALOG_MAX=1818 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 DUTY_DRAG=70 IO_AUX)  
-        
-To assign analog throttle to pin 6 on the AT32F421 MCU, use the ANALOG_PIN=6 option.  
+    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)  
 
-For ramping the pulse width modulation (pwm) duty cycle with respect to input voltage:  
+## Ducty Cycle Ramping and Drag Brake
 
-  1) Let's assume the minimum input voltage is ~2.2V, and the maximum input voltage is 10V. This corresponds roughly to the smallest useful track voltage to get the board running (where we want to start ramping up the dc), and a top end track voltage at which we want to hit 100% duty cycle (we choose 10V not 12.4 say because often we run low voltage club race nights and still want 100% dc at this maximum voltage)
-  2) For a 5K/1K divider, we get a factor of 1/(4.5+1)=1/5.5.  
-  3) 2.2V translates to 2.2/5.5=400mV, 10V translates to 10/5.5=909mV on the voltage divider pin, so we set the following options:  
+The ANALOG_MIN value sets the voltage below which the drag brake takes effect and where pulse width modulation duty cycle ramping take effect.
+
+There will be a quadratic throttle curve when both voltage level and pwm duty cycle are applied. For example: motor voltage is 1/4 at 1/2 "throttle" voltage.
+
+The drag brake determines the duty cycle of the eneergized phases when the analog voltage drops below ANALOG_MIN. In effect the phases act like a brake, how much of this is applied is determined by the duty drag setting.
+
+The duty drag is set by default in the firmware to 0 and is an alterable parameter that can be set by means of the dongle or command line.
+
+The calculated and measured voltage to which the circuit will operate down to is 1.1VDC. The calculated and measured starting voltage is 1.3VDC. These voltages are a result of adding the buck booster circuit to the board.
+
+The ANALOG_MIN value that's compiled in to the distributed firmware is 200, corresponding to about 1.1VDC, hence there is no room for the drag brake to turn on and have an effect.
+
+Therefore if it's important to be able to set the drag brake to something other than 0, it's necessary to compile the firmware with an ANALOG_MIN value of something higher than the current setting of 200.
+
+Calculating the ANALOG_MIN/MAX values: 
+
+  1) Let's assume the minimum input voltage is ~2.2VDC, and the maximum input voltage is 10VDC. This corresponds roughly at the low end to the smallest "useful" track voltage to get the motor running and where we want to start ramping up the duty cycle (dc), and below which we want to apply motor drag brakes. At the top end this is a track voltage at which we want to hit 100% duty cycle (we choose 10VDC not 12.4VDC say because often we run low voltage club race nights and still want 100% dc at this maximum voltage)
+  2) A 10K/2.2K ohm voltage divider circuit on the back EMF of each pole is used to detect the voltages in the mcu. Using the formula r2/r1+r2, we get a factor of 2.2/2.2+10 = .18 
+  3) So 2.2VDC translates to 2.2 * .18 = 397mV, 10VDC translates to 10 * .18 = 1803mV on the voltage divider pin, so we'd set the following options:  
   
-    ANALOG_MIN=400  
-    ANALOG_MAX=1818  
+    ANALOG_MIN=397  
+    ANALOG_MAX=1803  
 
-There will be a quadratic throttle curve when both voltage level and pwm duty cycle are applied. Motor voltage is 1/4 at 1/2 "throttle" voltage, for example.
+## Options
 
-To enable 100% drag brake say, set the DUTY_DRAG=100  option.
-
-     REMORA = name  
+     REMORA = name of the binary  
      AT32F421 = specify the Artery F421 mcu  
-     DEAD_TIME  
+     DEAD_TIME = microseconds to wait for the high/low side switching(?) 
      COMP_MAP = Comparator map. Maps the A/B/C (U/V/W) phase back emf signals to mcu pins PA0, PA4, PA5, namely 1, 2, 3 
-     ANALOG_MIN = the voltage at which the pwm duty cycle starts ramping up 400 is about 2.2VDC  
-     ANALOG_MAX = the voltage at which the duty cycle reaches 99% = 1818 is about 10VDC  
-     ANALOG_PIN  
-     ARM  
-     VOLUME=0 turn off sounds - the board does not have sound :-)
-     INPUT_MODE  
+     ANALOG_MIN = the voltage at which the pwm duty cycle starts ramping up, 200 is about 1.1VDC  
+     ANALOG_MAX = the voltage at which the duty cycle reaches 99% = 2218 is about 12.2VDC  
+     ANALOG_PIN - assign analog throttle to pin 6 on the AT32F421 MCU.  
+     ARM   
+     VOLUME=0 turn off sounds - the board does not have sound :-)  
+     INPUT_MODE=1 - Analog  
      FREQ_MIN = lowest pwm frequency  
      FREQ_MAX = highest pwm frequency  
-     DUTY_DRAG = duty cycle for braking  
+     DUTY_DRAG = duty cycle for braking, to enable say 70% dc, set this to 70. 
      IO_AUX = detect whether on not full duplex signal IO
 
-The REMORA-REV10 binary is slightly different. It's built uing the following target in the CMakeLists.txt file
+The REMORA-REV10 binary is built uing the following target in the CMakeLists.txt file
 
     add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)   
 
 The ANALOG_MIN is set to a minimum voltage of about 1.1v, which is below the voltage the board theoretically powers up. You'll note that ANALOG_MIN and ANALOG_MAX need to be compiled in to the firmware and are not setable parameters. 
 
-If for example you want the eCom to always run at 100% duty cycle from its starting voltage with no ramp up in the duty cycle, then you need to attach a WiFi link dongle to set and save duty_min to 100, this is the first non-zero duty cycle. When throttle becomes non-zero (voltage above 1.1V in our case), it's applied after synchronization. If you wanted 100% throttle at every voltage, change throt_set=100. See https://github.com/neoxic/ESCape32/wiki/Settings#throt_set-0 Note: throt_set is the minimum throttle value in analog mode and it's what ANALOG_MIN translates to. When you set it to some non-zero value, you'll get that throttle value at ANALOG_MIN voltages and lower. 
+If for example you want the eCom to always run at 100% duty cycle from its starting voltage with no ramp up in the duty cycle, then you need to attach a WiFi link dongle to set and save duty_min to 100, this is the first non-zero duty cycle. When throttle becomes non-zero (voltage above 1.1VDC in our case), it's applied after synchronization. If you wanted 100% throttle at every voltage, change throt_set=100. See https://github.com/neoxic/ESCape32/wiki/Settings#throt_set-0 Note: throt_set is the minimum throttle value in analog mode and it's what ANALOG_MIN translates to. When you set it to some non-zero value, you'll get that throttle value at ANALOG_MIN voltages and lower. 
 
-We ususally run in analog mode set by INPUT_MODE=1. In digital mode, throt_set is just an initial value that the throttle is set to upon startup. If it's not changed (say, you have no input), it remains at that value. Hence you can get fixed throttle mode out of it.
+We usually run in analog mode set by INPUT_MODE=1. In digital mode, throt_set is just an initial value that the throttle is set to upon startup. If it's not changed (say, you have no input), it remains at that value. Hence you can get fixed throttle mode out of it.
 
 In analog mode, it also serves as the minimum throttle value. Thus you can get two distinct modes - when you have zero-throttle and when you don't. 
 
@@ -221,7 +254,7 @@ ANALOG_PIN forces the firmware to sample analog throttle values on a different p
 
 ## The F421 Startup Delay
 
-If there is one downside to our design it might be the choice of MCU. When prototyping the design we realized that it has a small start up delay which we think might be caused by memory copying. [This article in HackaDay](https://hackaday.com/2020/10/22/stm32-clones-the-good-the-bad-and-the-ugly/) explains something about this issue for other chips. Search for "boot-up delay" to get to the piece. Artery chips are not the same, although it might be something similar.
+If there is one downside to our design, it might be the choice of MCU. When prototyping the design we realized that it has a small start up delay which we think might be caused by memory copying. [This article in HackaDay](https://hackaday.com/2020/10/22/stm32-clones-the-good-the-bad-and-the-ugly/) explains something about this issue for other chips. Search for "boot-up delay" to get to the piece. Artery chips are not the same, although it might be something similar.
 
 The AT32F421 startup delay is measured at ~4.2ms.
 
@@ -230,6 +263,7 @@ After startup, there's a little bit of extra time needed to switch clock source,
 We chose the Artery F421 MCU because of its (low) cost and (high) speed so that we had a fast enough clock speed to commutate a 12 pole motor at very high rpm, say 180,000 rpm+. As motor technogology matures we might need to revist this decision and it's an obvious change to the design that should be fairly simple to make. If you do that, please contribute it back.
 
 ## To Start a 10,000+K<sub>v</sub> Motor (say)
+
 There are several parameters to the ESCape32 firmware that can be adjusted to alter motor function.
 
 When a motor spins up, maximum duty cycle is limited at 10% by default before a full synchronized revolution is reached, i.e. 6 sync'ed commutations have commenced. This value can be overridden by the DUTY_SPUP build option. The maximum value is 25%. Please note that allowing even higher DUTY_SPUP values is possible, but generally it is dangerous as a stuck rotor will lead to instant motor overheating. Higher values also degrade smooth spinup most of the time because the motor tends to desync right away and stutters longer. Another option is FREQ_MIN which is 24kHz by default. Setting FREQ_MIN to 48 can help reduce current ripple.
@@ -265,13 +299,13 @@ An alternative setting that can be used to limit power based on RPM is duty_ramp
 
 You might witness timing effects in a car that won't leave the line smoothly on full power - it'll stutter and "cog". This might be because the motor is not under load because the wheels are spinning (!) due to too much torque from the motor - drone motors have a lot of torque - maybe too much. There are some [technical articles ... ](https://www.miniquadtestbench.com/motors-and-torque.html#:~:text=Torque%20itself%20is%20simply%20a,power%20%3D%20torque%20*%20angular%20velocity.) 
 
-## Default Drag Brake Setting 75%
+## Drag Brake Setting
 
-The default value is not a random value. When a motor is driven using complementary PWM (so called damped mode) it's literally braking while running. In other words, its two energized phases are either connected to rail and ground (driving) or both connected to ground (braking). 
+When a motor is driven using complementary PWM (so called damped mode) it's literally braking while running. In other words, its two energized phases are either connected to rail and ground (driving) or both connected to ground (braking). 
 
 When the duty cycle is close to 100%, the energized phases spend most of the time in the driving state (connected to opposite polarities) giving 0% braking. When duty cycle is close to 0%, the energized phases spend most of the time in the braking state (connected to ground) yielding a rough equivalent of 66% drag brake force. Deadtime obviously slightly reduces running brake by introducing an unconnected gap between transitions from driving to braking.
 
-So with a default 75% drag brake setting the transition from running brake to drag brake is quite smooth.
+So with a drag brake setting of 75%, the transition from running brake to drag brake is quite smooth.
 
 But if you need a more abrupt brake, higher than 75%, try setting it, it won't be smooth.
 
@@ -406,13 +440,73 @@ Power it off and follow the ESCape32 Wiki to connect its signal, ground and powe
 
 Apply power (at least 4v) to the eCom. Browse the link again - you should see the current setting values.
 
-## Connecting the dongle to the Remora
+## Connecting a WiFi dongle to the Remora
 
-If you look very closely at the Remora you'll see a very small 4 pin connector on the top of the board. This exports 4 connections, namely:
+If you look very closely at the Remora you'll see a very small .6mm, 4 pin connector on the top of the board. This exports 4 connections, namely:
 
    - +3.3 vdc
    - GND
    - PA1
    - PA15
 
-These need to be connected to the eqivalent pins of the ESP S2 or WiFi link. 
+These need to be connected to the equivalent pins of an ESP S2 or ESCape32 WiFi link. 
+
+### The ESP S2 Adapter
+
+If you wish to use an off-the-shelf ESP S2 board flashed with the equivalent ESCape32-provided firmware you need to exercise some care because these boards are powered from their 3.3v power connector from power output from the Remora1.
+
+If you choose to connect the two together directly just using a cable then you **MUST** ensure you do not apply more than 3.3v to the Remora1.
+
+You may also choose to interface them with an adapter board which contains a protection circuit. The KiCad design for these boards is located here [https://github.com/adrianblakey/slot-car-ecom/tree/main/KiCad_ESP32Mini_interface](https://github.com/adrianblakey/slot-car-ecom/tree/main/KiCad_ESP32Mini_interface)
+
+Send these off to JLCPCB to get parts made - we made 20 for about $75.
+
+The final part is connected to the Remora1 by means of a connector cable.
+
+The connector system is by JST and is the XSR series. Obtain the cable assembly from these suppliers:
+
+Farnell: (£10 delivery for orders < £40)
+
+[https://uk.farnell.com/jst-japan-solderless-terminals/04xsrxsr36l100/lead-100mm-xsr-rcpt-36awg-4way/dp/2347802](https://uk.farnell.com/jst-japan-solderless-terminals/04xsrxsr36l100/lead-100mm-xsr-rcpt-36awg-4way/dp/2347802)  
+[https://uk.farnell.com/help-delivery-information](https://uk.farnell.com/help-delivery-information)  
+
+RS: (£7 for orders < £50, but no stock, & the headline says 1.5m long but the text description says 150mm)
+
+[https://uk.rs-online.com/web/p/wire-to-board-cables/8201686](https://uk.rs-online.com/web/p/wire-to-board-cables/8201686)  
+[https://uk.rs-online.com/web/content/support/all-articles/delivery](https://uk.rs-online.com/web/content/support/all-articles/delivery)  
+
+
+Digikey: (£12 delivery for orders < £33)
+
+[https://www.digikey.co.uk/en/products/detail/jst-sales-america-inc/A04XSR04XSR36R152A/6194782](https://www.digikey.co.uk/en/products/detail/jst-sales-america-inc/A04XSR04XSR36R152A/6194782)  
+[https://www.digikey.co.uk/en/help-support/delivery-information/delivery-time-and-cost](https://www.digikey.co.uk/en/help-support/delivery-information/delivery-time-and-cost)  
+
+## The ESP32 WiFi Link
+
+These boards are an amalgam of the ESP32 and the adapter circuit. They can be ordered from Arseny directly for about $15.
+
+He advertises them on EBay: [https://www.ebay.ca/itm/126321893290](https://www.ebay.ca/itm/126321893290)
+
+
+## Saving Values inm the UI
+
+You can't save settings if the motor is spinning.
+
+Use the throttle slider at the bottom to stop it first.
+
+Then save.
+
+## The Simulation
+
+We have provided five SIMetrix simulations in the repo: [https://github.com/adrianblakey/slot-car-ecom/tree/main/Simetrix_simulation](https://github.com/adrianblakey/slot-car-ecom/tree/main/Simetrix_simulation)
+
+All run using the demo version of SIMetrix which is available from: https://www.simetrix.co.uk/
+
+These are for anyone who wants to understand more about Remora1 hardware operation and might perhaps want to test and compare working hardware.
+
+They provide voltages and currents at any point you want to probe.
+
+They all run and give some key waveforms by just pressing F9 on the computer keyboard.
+
+BLDCmotor_PowerStage_BackEMFsense.wxsch gives some brief instructions about using SIMetrix.
+
