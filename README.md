@@ -148,7 +148,7 @@ For the firmware:
 
     add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)
 
-The firmware build is more complex, there's an explanation below which describes the parameters, and Arseny has promised a more complete write up about the build parameters that'll appear in the [ESCape32 WiKi.](https://githib.comneoxic/ESCape32/wiki).
+The firmware build is more complex, there's an explanation below which describes the parameters, there is a complete description of all the build options on the [ESCape32 WiKi.]([https://githib.comneoxic/ESCape32/wiki](https://github.com/neoxic/ESCape32/wiki/BuildOptions)).
 
 
 The REMORA-rev10 binary is built from sources for ESCape32 Rev 10, it has default values and no ramping with a minimum analog voltage of ~1.1v to ~12.2v. We have been using this for our prototype testing. To use this you'll probably need to attach a WiFi dongle to eCom and set some specific values to suit your precise needs.
@@ -192,7 +192,7 @@ There will be a quadratic throttle curve when both voltage level and pwm duty cy
 
 The drag brake determines the duty cycle of the eneergized phases when the analog voltage drops below ANALOG_MIN. In effect the phases act like a brake, how much of this is applied is determined by the duty drag setting.
 
-The duty drag is set by default in the firmware to 0 and is an alterable parameter that can be set by means of the dongle or command line.
+The duty drag is set by default in the firmware to 0 and is an alterable parameter that can be set by means of the WiFi dongle or command line.
 
 The calculated and measured voltage to which the circuit will operate down to is 1.1VDC. The calculated and measured starting voltage is 1.3VDC. These voltages are a result of adding the buck booster circuit to the board.
 
@@ -203,7 +203,7 @@ Therefore if it's important to be able to set the drag brake to something other 
 Calculating the ANALOG_MIN/MAX values: 
 
   1) Let's assume the minimum input voltage is ~2.2VDC, and the maximum input voltage is 10VDC. This corresponds roughly at the low end to the smallest "useful" track voltage to get the motor running and where we want to start ramping up the duty cycle (dc), and below which we want to apply motor drag brakes. At the top end this is a track voltage at which we want to hit 100% duty cycle (we choose 10VDC not 12.4VDC say because often we run low voltage club race nights and still want 100% dc at this maximum voltage)
-  2) A 10K/2.2K ohm voltage divider circuit on the back EMF of each pole is used to detect the voltages in the mcu. Using the formula r2/r1+r2, we get a factor of 2.2/2.2+10 = .18 
+  2) A 10K/2.2K ohm voltage divider circuit on the back EMF of each pole is used to detect the voltages in the mcu. Using the formula r2/(r1+r2), we get a factor of 2.2/(10 + 2.2) = .18 
   3) So 2.2VDC translates to 2.2 * .18 = 397mV, 10VDC translates to 10 * .18 = 1803mV on the voltage divider pin, so we'd set the following options:  
   
     ANALOG_MIN=397  
@@ -218,7 +218,7 @@ Calculating the ANALOG_MIN/MAX values:
      ANALOG_MIN = the voltage at which the pwm duty cycle starts ramping up, 200 is about 1.1VDC  
      ANALOG_MAX = the voltage at which the duty cycle reaches 99% = 2218 is about 12.2VDC  
      ANALOG_PIN - assign analog throttle to pin 6 on the AT32F421 MCU.  
-     ARM   
+     ARM=1  
      VOLUME=0 turn off sounds - the board does not have sound :-)  
      INPUT_MODE=1 - Analog  
      FREQ_MIN = lowest pwm frequency  
