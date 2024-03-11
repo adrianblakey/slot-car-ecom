@@ -50,7 +50,7 @@ In this repo. you'll find:
 
   [AART11-2023-12-13_115145](https://github.com/adrianblakey/slot-car-ecom/tree/main/AART11-2023-12-13_115145) - A KiCad design for the board  
   [KiCad_ESP32Mini_interface](https://github.com/adrianblakey/slot-car-ecom/tree/main/KiCad_ESP32Mini_interface) - A KiCad design for an adapter board  
-  [Simetrix_simulation](https://github.com/adrianblakey/slot-car-ecom/tree/main/Simetrix_simulation) - A Simetrix simulation for the board
+  [Simetrix_simulation](https://github.com/adrianblakey/slot-car-ecom/tree/main/Simetrix_simulation) - A Simetrix simulation for the board  
   [bin](https://github.com/adrianblakey/slot-car-ecom/tree/main/bin) - Firmware binaries (bootloader and commutator)
   [docs](https://github.com/adrianblakey/slot-car-ecom/tree/main/docs) - Documentation
 
