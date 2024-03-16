@@ -522,11 +522,11 @@ When it's finished downloading launch it to open a terminal window and create a 
 
 Get the latest sources by typing:  
 
-   git clone git clone https://github.com/neoxic/ESCape32.git   
+     git clone git clone https://github.com/neoxic/ESCape32.git   
 
 Then use pacman the package installer to install the dependencies:   
   
-   sudo pacman -Syu cmake arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib libopencm3 stlink   
+     sudo pacman -Syu cmake arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib libopencm3 stlink   
    
 When it asks for the password use the one you created for the id you just created.
 
