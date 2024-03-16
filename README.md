@@ -514,11 +514,11 @@ BLDCmotor_PowerStage_BackEMFsense.wxsch gives some brief instructions about usin
 
 Install wsl - follow this: https://learn.microsoft.com/en-us/windows/wsl/install
 
-Install wsl with Ubuntu. You'll need to reboot a couple of times and take the advice to install the Windows Terminal.
+Install wsl with its default guest OS Ubuntu that we will not use. You'll need to reboot a couple of times its optional whether you take the advice to install the Windows Terminal. Don't boterh opening Ubuntu in a terminal. We are going to install and use Arch Linux.
 
 Go to the Windows store https://apps.microsoft.com/ and download Arch linux. It's hosted here: https://github.com/VSWSL/Arch-WSL
 
-When it's finished downloading launch it to open a terminal window and create a Arch userid and password. You'll then be at a Linux command prompt.
+When it's finished downloading launch it from the Microsoft App Store App. to open a terminal window. Follow the prompts to create an Arch userid and password. You'll then be at a Linux command prompt.
 
 Get the latest sources by typing:  
 
@@ -564,7 +564,11 @@ You'll find the binaries in:
     ~/ESCape32/build   
     ~/ESCape32/build/boot   
   
+Close the window by typing: exit
 
+Get back in again by openineg a Windows Powershell and typing: Arch
+
+To see what you've got: wsl --list
 
 
 
