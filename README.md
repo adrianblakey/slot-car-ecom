@@ -534,18 +534,18 @@ Note right mouse implements cut/paste and you can edit the command line using th
 
 Try building all the targets to see if this has succeeded.
 
-  cd ESCape32   
-  cmake -B build   
-  cd build   
-  make   
+    cd ESCape32   
+    cmake -B build   
+    cd build   
+    make   
 
 Open the VSCode editor: 
 
-   code CMakeLists.txt
+    code CMakeLists.txt
    
 Move to the bottom and remove the targets you do not need and add the one and only target for REMORA e.g.
 
-  add_target(REMORA AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)  
+    add_target(REMORA AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)  
 
 Hint: ctl-C to copy the line above, select the add_target lines in the editor and ctl-V to replace them. ctl-S to save it. 
 
@@ -555,14 +555,14 @@ Use the File->Open->Arch/home/nnn/boot/CMakeLists.txt and do the same - remove a
 
 Then build the files:
 
-   cd ~/ESCape32/build   
-   make clean
-   make
+    cd ~/ESCape32/build   
+    make clean  
+    make  
 
 You'll find the binaries in: 
 
-   ~/ESCape32/build  
-    ~/ESCape32/build/boot  
+    ~/ESCape32/build   
+    ~/ESCape32/build/boot   
   
 
 
