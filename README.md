@@ -510,3 +510,61 @@ They all run and give some key waveforms by just pressing F9 on the computer key
 
 BLDCmotor_PowerStage_BackEMFsense.wxsch gives some brief instructions about using SIMetrix.
 
+# Building the sources on Windows
+
+Install wsl - follow this: https://learn.microsoft.com/en-us/windows/wsl/install
+
+Install wsl with Ubuntu. You'll need to reboot a couple of times and take the advice to install the Windows Terminal.
+
+Go to the Windows store https://apps.microsoft.com/ and download Arch linux. It's hosted here: https://github.com/VSWSL/Arch-WSL
+
+When it's finished downloading launch it to open a terminal window and create a Arch userid and password. You'll then be at a Linux command prompt.
+
+Get the latest sources by typing:  
+
+   git clone git clone https://github.com/neoxic/ESCape32.git   
+
+Then use pacman the package installer to install the dependencies:   
+  
+   sudo pacman -Syu cmake arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib libopencm3 stlink   
+   
+When it asks for the password use the one you created for the id you just created.
+
+Note right mouse implements cut/paste and you can edit the command line using the emacs key bindings (lol) and cursor keys.
+
+Try building all the targets to see if this has succeeded.
+
+  cd ESCape32   
+  cmake -B build   
+  cd build   
+  make   
+
+Open the VSCode editor: 
+
+   code CMakeLists.txt
+   
+Move to the bottom and remove the targets you do not need and add the one and only target for REMORA e.g.
+
+  add_target(REMORA AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)  
+
+Hint: ctl-C to copy the line above, select the add_target lines in the editor and ctl-V to replace them. ctl-S to save it. 
+
+Use the File->Open->Arch/home/nnn/boot/CMakeLists.txt and do the same - remove all targets and replace with:
+ 
+    add_target(BOOT3_PA2_XF STM32F0 AT32F4 IO_PA2 IO_AUX FAST_EXIT)
+
+Then build the files:
+
+   cd ~/ESCape32/build   
+   make clean
+   make
+
+You'll find the binaries in: 
+
+   ~/ESCape32/build  
+    ~/ESCape32/build/boot  
+  
+
+
+
+
