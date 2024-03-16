@@ -514,7 +514,7 @@ BLDCmotor_PowerStage_BackEMFsense.wxsch gives some brief instructions about usin
 
 Install wsl - follow this: https://learn.microsoft.com/en-us/windows/wsl/install
 
-Install wsl with its default guest OS Ubuntu that we will not use. You'll need to reboot a couple of times its optional whether you take the advice to install the Windows Terminal. Don't boterh opening Ubuntu in a terminal. We are going to install and use Arch Linux.
+Install wsl with its default guest OS Ubuntu that we will not use. You'll need to reboot a couple of times, it's optional whether you take the advice to install the Windows Terminal. Don't bother opening Ubuntu in a terminal. We are going to install and use Arch Linux.
 
 Go to the Windows store https://apps.microsoft.com/ and download Arch linux. It's hosted here: https://github.com/VSWSL/Arch-WSL
 
@@ -524,7 +524,7 @@ Get the latest sources by typing:
 
      git clone git clone https://github.com/neoxic/ESCape32.git   
 
-Then use pacman the package installer to install the dependencies:   
+Then use pacman, the package installer to install the dependencies:   
   
      sudo pacman -Syu cmake arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib libopencm3 stlink   
    
@@ -559,11 +559,17 @@ Then build the files:
     make clean  
     make  
 
+The G431 fails to compile with the pacman packages - don't fret - it's not important to us.
+
 You'll find the binaries in: 
 
     ~/ESCape32/build   
     ~/ESCape32/build/boot   
   
+You might occasionally need to update the installed packages by typing:
+
+    sudo pacman -Syu
+
 Close the window by typing: exit
 
 Get back in again by openineg a Windows Powershell and typing: Arch
