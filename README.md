@@ -539,6 +539,8 @@ Try building all the targets to see if this has succeeded.
     cd build   
     make   
 
+The G431 fails to compile with the pacman packages - don't fret - it's not important to us.
+
 Open the VSCode editor: 
 
     code CMakeLists.txt
@@ -558,8 +560,6 @@ Then build the files:
     cd ~/ESCape32/build   
     make clean  
     make  
-
-The G431 fails to compile with the pacman packages - don't fret - it's not important to us.
 
 You'll find the binaries in: 
 
