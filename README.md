@@ -48,11 +48,11 @@ The board itself is called a Remora1 - Remora version 1. Our first prototype was
 
 In this repo. you'll find:  
 
-  [AART11-2023-12-13_115145](https://github.com/adrianblakey/slot-car-ecom/tree/main/AART11-2023-12-13_115145) - A KiCad design for the board  
-  [KiCad_ESP32Mini_interface](https://github.com/adrianblakey/slot-car-ecom/tree/main/KiCad_ESP32Mini_interface) - A KiCad design for an adapter board  
-  [Simetrix_simulation](https://github.com/adrianblakey/slot-car-ecom/tree/main/Simetrix_simulation) - A Simetrix simulation for the board  
-  [bin](https://github.com/adrianblakey/slot-car-ecom/tree/main/bin) - Firmware binaries (bootloader and commutator)  
-  [docs](https://github.com/adrianblakey/slot-car-ecom/tree/main/docs) - Documentation
+  [AART11-2023-12-13_115145](https://github.com/adrianblakey/slot-car-ecom/tree/main/AART11-2023-12-13_115145) - A KiCad design for the board.  
+  [KiCad_ESP32Mini_interface](https://github.com/adrianblakey/slot-car-ecom/tree/main/KiCad_ESP32Mini_interface) - A KiCad design for an adapter board.  
+  [Simetrix_simulation](https://github.com/adrianblakey/slot-car-ecom/tree/main/Simetrix_simulation) - A Simetrix simulation for the board.  
+  [bin](https://github.com/adrianblakey/slot-car-ecom/tree/main/bin) - Firmware binaries (bootloader and commutator builds).  
+  [docs](https://github.com/adrianblakey/slot-car-ecom/tree/main/docs) - Documentation.
 
 # The Board Design Files
 
@@ -66,7 +66,7 @@ It's quite simple to send this automated design to the JLCPCB to get the boards 
   Navigate to the KiCad files.  
   Click on the project file to open them in KiCad. 
   Open the pcb editor.
-  Use the Fabrication Toolkit icon to generate the gerber, bom and placement files.
+  Use the Fabrication Toolkit icon to generate the Gerber, bill of materials (bom) and placement files.
 
  Note: There are a couple of defects in this plugin that incorrectly swaps the columns around in the placement and bom files. The corrected files are checked in to repo. in the "production" directory.
 
@@ -74,18 +74,18 @@ If you run the design through the design rules checker it'll give warning messag
 
 There are 2 types of vias used in the pcb design. They differ in size to differentiate one type from the other. We asked JLCPCB about this before submitting the design because their order input only allows you to specify one type of via. 
 
-The solution to this is to annotate the order in the PCB remarks field with something like: "0.3mm via holes are standard through-hole vias, namely: "Via Covering" Tented.
+The solution to this is to annotate the order in the PCB remarks field with something like this: "0.3mm via holes are standard through-hole vias, namely: "Via Covering" Tented.
 The 11 vias with 0.35mm holes are the via-in-pad ones, namely: "Via Covering" Epoxy Filled & Capped".
 
 You also should select the option: "Confirm Production file" - as this puts the information in front of a real person for review.
 
-We chose to fabricate a 1mm rather than the standard 1.6mm board.
+We chose to fabricate a 1mm rather than the standard 1.6mm thick board becuase the board is tiny and does not need the additional rigidity and it marginally lowers the center of gravity.
 
 ## Binaries 
 
-There is also a [binary directory called "bin"](https://github.com/adrianblakey/slot-car-ecom/tree/main/bin) in git in which you'll find ESCape32 binaries built specifically for the part. There is a custom bootloader BOOT3_PA2_AUX_FAST_EXIT-rev2.bin and firmware build REMORA-rev0.bin.
+There is a [binary directory called "bin"](https://github.com/adrianblakey/slot-car-ecom/tree/main/bin) in git in which you'll find ESCape32 binaries built specifically for the part. There is a custom bootloader BOOT3_PA2_AUX_FAST_EXIT-rev2.bin and a couple of different firmware builds, named REMORA_*.bin.
 
-You can download the sources of ESCape32 and build them yourself assuming you have a suitable machine on which to do so. We build ours on an Arch Linux laptop - it only takes a few seconds to do. There are other Linux distros. that'll work fine and (guessing ... you can either: install cygwin on Windows or the [Linux Subsystem for Windows](https://learn.microsoft.com/en-us/windows/wsl/install) or suitable packages using brew on MacOS). 
+You can download the sources of ESCape32 and build them yourself assuming you have a suitable machine on which to do so. We build ours on an Arch Linux laptop - it only takes a few seconds to do. There are other Linux distros. that'll work fine. We have also built them on Windows using [Linux Subsystem for Windows (wsl)](https://learn.microsoft.com/en-us/windows/wsl/install) - the process for which is described below.
 
 Note: the CMake is configured to use the gnu arm cross compiler and it assumes it's running on an Intel machine despite the binary targets being for an arm binary. I made a half hearted effort to try to get it to run on a Apple Silcon Mac without the cross compiler - but failed. I am told it can run be run in a [UTM](https://mac.getutm.app/) virtual machine on MacOS - but I haven't tried yet. If you have success doing this we'd like instructions - please file a defect and tell us how, or submit a pull request in git.
 
@@ -129,14 +129,16 @@ In order to flash the board you need 2 binary files. Namely:
   - the bootloader
   - the driver
 
-We have provided the bootloader binary and a build of the driver. You only really need one binary, because once it's installed you can change its parameters using a WiFi Link dongle. If a updated binary is released this can also be installed using the dongle and a browser.
+We have provided the bootloader binary and a couple of different builds of the driver. You only need to flash the Remora1 with an ESCape32 binary - once. Becuase the installed firmware can be updated with new firmware using the command line or better still the WiFi Link dongle. This is also the means by which you can change its operating parameters. Therefore it's a simple process if you want to try another binary with different compiled-in settings, or in future we advise updating to a newer release of the binary - just use the WiFi Link dongle and a browser.
 
 In the bin directory you'll find the following binaries: 
 
-    BOOT3_PA2_AUX_FAST_EXIT-rev2.bin   
-    REMORA-rev10.bin  
+    BOOT3_PA2_XF-rev2.bin     
+    REMORA_198_2178-rev10.bin    
+    REMORA_369_2178-rev10.bin   
+    REMORA_342_1800-rev10.bin   
  
-They are built on Linux from the ESCape32 sources. 
+They are all built on Linux from the ESCape32 sources. 
 
 The following build options are used:
 
@@ -146,20 +148,21 @@ For the bootloader:
 
 For the firmware:
 
-    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)
+    add_target(REMORA_198_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=198 ANALOG_MAX=2178) # 1.1VDC - 12.1VDC
+    add_target(REMORA_369_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=369 ANALOG_MAX=2178) # 2.05VDC - 12.1VDC
+    add_target(REMORA_342_1800 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=342 ANALOG_MAX=1800) # 1.8VDCC - 10VDC
 
 The firmware build is more complex, there's an explanation below which describes the parameters, there is a complete description of all the build options on the [ESCape32 WiKi.]([https://githib.comneoxic/ESCape32/wiki](https://github.com/neoxic/ESCape32/wiki/BuildOptions)).
 
+All the binaries are built from sources for ESCape32 Rev 10 and have no sofware added DEAD_TIME, which introduces a slight delay in switching. Dead time is delegated to the hardware. If you wish to test this please build your own or ask us for a build with a specific setting.
 
-The REMORA-rev10 binary is built from sources for ESCape32 Rev 10, it has default values and no ramping with a minimum analog voltage of ~1.1v to ~12.2v. We have been using this for our prototype testing. To use this you'll probably need to attach a WiFi dongle to eCom and set some specific values to suit your precise needs.
+The names of the binaries iniocate th ANALOG_MIN and ANALOG_MAX values with which they were built. Start with REMORA_198_2178-rev10.bin it has default values and no ramping with a minimum analog voltage of ~1.1VDC to ~12.1VDC. We have been using this for our prototype testing. Attach a WiFi dongle to your eCom and set some specific values to suit your precise needs.
 
 The firmware has not been compiled with the "ANALOG" option so that the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
 
-There is a complete explanation about how to connect a computer and use the [command line interface (CLI) on the ESCape32 WiKi.](https://github.com/neoxic/ESCape32/wiki/WiFiLink)
+You may connect a computer to the eCom and use the [command line interface (CLI) on the ESCape32 WiKi.](https://github.com/neoxic/ESCape32/wiki/WiFiLink), however it's much simpler to connect a WiFi Link dongle using the .6mm connector installed on the Remora1 board. Then use a Web browser to make configuration changes. The [WiFi link](https://github.com/neoxic/ESCape32/wiki/WiFiLink) is described on the github WiKi.
 
-It's also possible to connect a WiFi dongle to the same interface and use a Web browser to make configuration changes. The [WiFi link](https://github.com/neoxic/ESCape32/wiki/WiFiLink) is also described on the github WiKi.
-
-Either you can obtain a "WiFi Link" board from Arseny, or you can buy a very inexpensive (~$5) ESP S3 board from Amazon or Ebay and flash a supplied image onto it. The only significant difference between the two is some additional protection circuitry on the WiFi Link board. Until we can provide some similary interface circuit - you must **limit the supplied voltage to the Remora to 3.3v if you have the ESP S2 dongle attached**.
+You can also obtain a "WiFi Link" board from Arseny and solder a connection to it, or you can buy a very inexpensive (~$5) [ESP32 S2 board from Amazon](https://www.amazon.co.uk/dp/B0CB27MGZK) or Ebay and flash a [supplied image](https://github.com/neoxic/ESCape32-WiFi-Link/releases) onto it. The only significant difference between the two is some additional protection circuitry on the WiFi Link board. To make the ESP32 S2 safe to use at higher voltages we have implemented an adapter board, the [KiCad files](https://github.com/adrianblakey/slot-car-ecom/tree/main/KiCad_ESP32Mini_interface) for which are distributed too, if you want to make your own.
 
 # Building the Firmware
 
@@ -182,9 +185,13 @@ In ESCape32/boot/CMakeLists.txt
 
 In ESCape32/CMakeLists.txt  
 
-    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)  
+    add_target(REMORA AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)  
 
-## Ducty Cycle Ramping and Drag Brake
+***Do not alter the build string for the bootloader.***
+
+***Do not alter the COMP_MAP, ANALOG_PIN, ARM, VOLUME, INPUT_MODE, IO_AUX parameters for the firmware.***
+
+## Duty Cycle Ramping and Drag Brake
 
 The ANALOG_MIN value sets the voltage below which the drag brake takes effect and where pulse width modulation duty cycle ramping take effect.
 
