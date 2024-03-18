@@ -40,9 +40,15 @@ Now, all we need (lol) are some open designs for motors and chassis :-)
 
 # Naming
 
-The AART is our partnership acronym. In the same way Pete/Bob/Richard called theirs SBM - we've given ours the catchy name: Adrian And Richard's Technology (AART) and it reflects the fact that it really is a work of art. Since Arseny (of ESCape32) had a large influence in the design it is also be an acronym for "Adrian, Arseny, (and) Richard's Technology".
+The AART is our partnership acronym. In the same way Pete/Bob/Richard called theirs SBM - we've given ours the catchy name: Adrian And Richard's Technology (AART) and it reflects the fact that it really is a work of art. Since Arseny, who wrote the the ESCape32 firmware, had a large influence on the design it is also be an acronym for "Adrian, Arseny, (and) Richard's Technology".
 
 The board itself is called a Remora1 - Remora version 1. Our first prototype was called "Remora" because it was a little add-on board for a commercial drone ESC (HAKRC BLHeli_32 Bit 35A 2-5S ESC) that clung to the top - a bit like the [remora fish](https://en.wikipedia.org/wiki/Remora) clings to a shark. Richard liked the name and persuaded me to keep it for the product - cause it sort of stuck and sticks to a slot car chassis I suppose. It's printed on the PCB - if you don't like it - well I hope you know what to do :-)
+
+# Getting Help
+
+If you don't understand any aspect of this please ask. We know its alot of information. Do not be shy - there are no silly questions - we are all here to learn.
+
+The best place to ask is the [ESCape32 Discord server](https://discord.gg/fCuSxaQuJD). 
 
 # Github Repo Organization
 
