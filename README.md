@@ -66,13 +66,13 @@ In this repo you'll find the complete set of KiCad files for the design in the d
 
 It's quite simple to send this automated design to the JLCPCB to get the boards manufactured. The process to generate the files to send to them is: 
 
-  Download and install KiCad on a computer.   
-  Open the software and use the plugin installer to install "Fabrication Toolkit".  
-  Use git to clone the slot-car-ecom git repo.  
-  Navigate to the KiCad files.  
-  Click on the project file to open them in KiCad. 
-  Open the pcb editor.
-  Use the Fabrication Toolkit icon to generate the Gerber, bill of materials (bom) and placement files.
+  - Download and install KiCad on a computer.   
+  - Open the software and use the plugin installer to install "Fabrication Toolkit".  
+  - Use git to clone the slot-car-ecom git repo.  
+  - Navigate to the KiCad files.  
+  - Click on the project file to open them in KiCad. 
+  - Open the pcb editor.
+  - Use the Fabrication Toolkit icon to generate the Gerber, bill of materials (bom) and placement files.
 
  Note: There are a couple of defects in this plugin that incorrectly swaps the columns around in the placement and bom files. The corrected files are checked in to repo. in the "production" directory.
 
