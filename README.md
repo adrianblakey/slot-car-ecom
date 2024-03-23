@@ -158,7 +158,7 @@ For the firmware:
     add_target(REMORA_369_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=369 ANALOG_MAX=2178 FULL_DUTY) # 2.05VDC - 12.1VDC
     add_target(REMORA_342_1800 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=342 ANALOG_MAX=1800) # 1.8VDCC - 10VDC
 
-The firmware build is more complex, there's an explanation below which describes the parameters, there is a complete description of all the build options on the [ESCape32 WiKi.]([https://githib.comneoxic/ESCape32/wiki](https://github.com/neoxic/ESCape32/wiki/BuildOptions)).
+The firmware build is more complex, there's an explanation below which describes the parameters, there is a complete description of all the build options on the [ESCape32 WiKi](https://github.com/neoxic/ESCape32/wiki/BuildOptions).
 
 All the binaries are built from sources for ESCape32 Rev 10 and have no sofware added DEAD_TIME, which introduces a slight delay in switching. Dead time is delegated to the hardware. If you wish to test this please build your own or ask us for a build with a specific setting.
 
