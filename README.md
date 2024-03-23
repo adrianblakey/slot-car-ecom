@@ -154,8 +154,8 @@ For the bootloader:
 
 For the firmware:
 
-    add_target(REMORA_198_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=198 ANALOG_MAX=2178) # 1.1VDC - 12.1VDC
-    add_target(REMORA_369_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=369 ANALOG_MAX=2178) # 2.05VDC - 12.1VDC
+    add_target(REMORA_198_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=198 ANALOG_MAX=2178 FULL_DUTY) # 1.1VDC - 12.1VDC
+    add_target(REMORA_369_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=369 ANALOG_MAX=2178 FULL_DUTY) # 2.05VDC - 12.1VDC
     add_target(REMORA_342_1800 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=342 ANALOG_MAX=1800) # 1.8VDCC - 10VDC
 
 The firmware build is more complex, there's an explanation below which describes the parameters, there is a complete description of all the build options on the [ESCape32 WiKi.]([https://githib.comneoxic/ESCape32/wiki](https://github.com/neoxic/ESCape32/wiki/BuildOptions)).
@@ -238,10 +238,11 @@ Calculating the ANALOG_MIN/MAX values:
      FREQ_MAX = highest pwm frequency  
      DUTY_DRAG = duty cycle for braking, to enable say 70% dc, set this to 70. 
      IO_AUX = detect whether on not full duplex signal IO
+     FULL_DUTY = enables access to 100% duty cycle
 
-The REMORA-REV10 binary is built uing the following target in the CMakeLists.txt file
+The REMORA-REV1_0_198|368 binaries are built uing the following target in the CMakeLists.txt file
 
-    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218)   
+    add_target(REMORA AT32F421 DEAD_TIME=66 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=200 ANALOG_MAX=2218 FULL_DUTY)   
 
 The ANALOG_MIN is set to a minimum voltage of about 1.1v, which is below the voltage the board theoretically powers up. You'll note that ANALOG_MIN and ANALOG_MAX need to be compiled in to the firmware and are not setable parameters. 
 
@@ -262,6 +263,8 @@ Also note that DUTY_DRAG is defaulted to 0. Therefore if you want a specific bra
 Normally you can't disable arming (arm=0) in analog mode (unless you build with ANALOG which disables that). This is because it becomes impossible to distinguish between digital high level and analog high level. But in with ANALOG_PIN overriding the default analog throttle pin (the same as the digital input pin), it becomes possible.
 
 ANALOG_PIN forces the firmware to sample analog throttle values on a different pin. By default, it's the same pin, e.g. PA2 or PA6. However in our case, PA2 is digital input and PA6 is analog. Since they are separated, there's no aforementioned problem, hence no there is no restriction on arming.
+
+The FULL_DUTY build opton allows you to set DUTY_MIN to 100% so that you can run at full 100% duty at any input voltage (once the start-up is completed). If you then set DAMP=ON, TIMING=4, FREQ_MIN=24, FREQ_MAX=24 the increase in speed at a 5V supply, compared to firmware that is built without the FULL_DUTY opton, is about 0.3% higher.
 
 # Misc. Notes
 
