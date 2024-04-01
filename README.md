@@ -592,5 +592,6 @@ Get back in again by openineg a Windows Powershell and typing: Arch
 
 To see what you've got: wsl --list
 
+# Connectors
 
-
+We debated whether or not to attach or supply connectors. The pragmatic solution was to just have connector holes drilled in the phase pads. Here's [a link](https://www.mattmillman.com/info/crimpconnectors/common-jst-connector-types/) to help you if you want to use them.
