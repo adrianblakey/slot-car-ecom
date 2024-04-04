@@ -627,13 +627,13 @@ The voltage at the Remora should be higher than the hand-controller voltage, as 
 ## Back emf
 During accelerating or running at constant speed the back emf is lower than the supply voltage, so plays no part in keeping Remora alive, it is just used for sensing the motor position to maintain synchronisation. But during braking, back emf can keep the Remora alive for a while as the mosfet output bridge acts like a 3-phase rectifier feeding power back to the Remora supply rail. See the two wave forms below. 
 
-
-Remora internal supply voltage 2V/division, 200ms/ division NO motor connected.
+[Figure 1 - braking, no motor](https://github.com/adrianblakey/slot-car-ecom/blob/main/docs/braking1.png)
+Remora internal supply voltage 2V/division, 200ms/division ***NO motor connected***
 Supply drops quickly in 13ms from 12V to about 1V.
 
-
-Remora internal supply voltage 2V/division, 200ms/ division WITH unloaded motor connected.
-The supply now takes nearly 1s to drop from 12V to just over 1V. The discontinuity at about 1V is at the point where Remora stops working.
+[Figure 2 - braking - with motor](https://github.com/adrianblakey/slot-car-ecom/blob/main/docs/braking2.png)
+Remora internal supply voltage 2V/division, 200ms/division ***WITH unloaded motor connected***
+The supply now takes nearly 1s to drop from 12V to just over 1V. The discontinuity at about 1V is at the point where the Remora stops working.
 If a braking resistor had been connected, the back emf would still try to keep Remora alive but the supply rail voltage would drop much more quickly.
 
 ## Drag brake
