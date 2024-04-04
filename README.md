@@ -76,7 +76,8 @@ It's quite simple to send this automated design to the JLCPCB to get the boards 
 
  Note: There are a couple of defects in this plugin that incorrectly swaps the columns around in the placement and bom files. The corrected files are checked in to repo. in the "production" directory.
 
-If you run the design through the design rules checker it'll give warning messages. I was always told "a warning is an error" - and needs to be addressed. Despite this advice you may ignore them - unless of course you'd like to provide us with a fix that'll correct the issues :-) 
+If you run the design through the design rules checker it'll give warning messages. These are caused by parts overlapping each other because the 
+foot prints for them are badly defined. I was always told "a warning is an error" - and needs to be addressed. Despite this advice you may ignore them. We are in the process of addressing them and will provide an update to the design files.
 
 There are 2 types of vias used in the pcb design. They differ in size to differentiate one type from the other. We asked JLCPCB about this before submitting the design because their order input only allows you to specify one type of via. 
 
@@ -141,10 +142,13 @@ In the bin directory you'll find the following binaries:
 
     BOOT3_PA2_XF-rev2.bin     
     REMORA_198_2178-rev10.bin    
+    REMORA_324_1800-rev10.bin   
+    REMORA_324_1800-rev10.bin    
     REMORA_369_2178-rev10.bin   
-    REMORA_342_1800-rev10.bin   
+    REMORA_396_1803-rev10.bin    
+    REMORA_540_1803-rev10.bin    
  
-They are all built on Linux from the ESCape32 sources. 
+They are all built on Linux from the latest ESCape32 sources. 
 
 The following build options are used:
 
@@ -154,17 +158,20 @@ For the bootloader:
 
 For the firmware:
 
-    add_target(REMORA_198_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=198 ANALOG_MAX=2178 FULL_DUTY) # 1.1VDC - 12.1VDC
-    add_target(REMORA_369_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=369 ANALOG_MAX=2178 FULL_DUTY) # 2.05VDC - 12.1VDC
-    add_target(REMORA_342_1800 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=342 ANALOG_MAX=1800) # 1.8VDCC - 10VDC
+    add_target(REMORA_198_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=198 ANALOG_MAX=2178 FULL_DUTY) # 1.1 - 12.1V
+    add_target(REMORA_369_2178 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX ANALOG_MIN=369 ANALOG_MAX=2178 FULL_DUTY) # 2.05 - 12.1V
+    add_target(REMORA_540_1803 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX FULL_DUTY ANALOG_MIN=540 ANALOG_MAX=1803) # 3 - 10V
+    add_target(REMORA_396_1803 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX FULL_DUTY ANALOG_MIN=396 ANALOG_MAX=1803) # 2.2 - 10V
+    add_target(REMORA_342_1800 AT32F421 DEAD_TIME=0 COMP_MAP=123 ANALOG_PIN=6 ARM=0 VOLUME=0 INPUT_MODE=1 IO_AUX FULL_DUTY ANALOG_MIN=360 ANALOG_MAX=1803) # 2 - 10V
+
 
 The firmware build is more complex, there's an explanation below which describes the parameters, there is a complete description of all the build options on the [ESCape32 WiKi](https://github.com/neoxic/ESCape32/wiki/BuildOptions).
 
-All the binaries are built from sources for ESCape32 Rev 10 and have no sofware added DEAD_TIME, which introduces a slight delay in switching. Dead time is delegated to the hardware. If you wish to test this please build your own or ask us for a build with a specific setting.
+All the binaries are built from sources for ESCape32 and have no sofware added DEAD_TIME, which introduces a slight delay in switching. Dead time is delegated to the hardware. If you wish to test with dead time (which we know is unnecessary) please build your own or ask us for a build with a specific setting.
 
-The names of the binaries iniocate th ANALOG_MIN and ANALOG_MAX values with which they were built. Start with REMORA_198_2178-rev10.bin it has default values and no ramping with a minimum analog voltage of ~1.1VDC to ~12.1VDC. We have been using this for our prototype testing. Attach a WiFi dongle to your eCom and set some specific values to suit your precise needs.
+The names of the binaries indicate the ANALOG_MIN and ANALOG_MAX values with which they were built. Start with REMORA_198_2178-rev10.bin it has default values, 100% duty cycle and no ramping with analog voltage settings of ~1.1VDC to ~12.1VDC. We have been using this for our prototype testing. Attach a WiFi dongle to your eCom and set specific parameter values to suit your precise needs.
 
-The firmware has not been compiled with the "ANALOG" option so that the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
+Note: The firmware has NOT been compiled with the "ANALOG" option so that the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
 
 You may connect a computer to the eCom and use the [command line interface (CLI) on the ESCape32 WiKi.](https://github.com/neoxic/ESCape32/wiki/WiFiLink), however it's much simpler to connect a WiFi Link dongle using the .6mm connector installed on the Remora1 board. Then use a Web browser to make configuration changes. The [WiFi link](https://github.com/neoxic/ESCape32/wiki/WiFiLink) is described on the github WiKi.
 
