@@ -602,3 +602,58 @@ To see what you've got: wsl --list
 # Connectors
 
 We debated whether or not to attach or supply connectors. The pragmatic solution was to just have connector holes drilled in the phase pads. Here's [a link](https://www.mattmillman.com/info/crimpconnectors/common-jst-connector-types/) to help you if you want to use them.
+
+# Notes on braking
+
+## Fundamentals
+The motor is always rotating in the same direction, whether speeding-up or slowing-down. So both the back emf (when measured at the Remora supply lines) and the voltage at the hand-controller output are always positive.
+
+When accelerating or running at constant speed, electrical power has to be supplied to the motor to provide positive torque to overcome the mechanical load, meaning current flows out of the hand-controller.
+
+But, when braking (ignoring drag brake for the moment) the direction of torque has to be reversed to slow the motor (mechanical load). As torque is a function of current, this means that the direction of current flow now has to be into the hand-controller. Commonly this current is dumped into a brake resistor to absorb the kinetic energy of the car.
+
+Drag braking works in a different way, it shorts all three motor phase together (there is some control over this) and the kinetic energy is now dissipated in the motor not in an external brake resistor.
+
+## Resistor braking
+When the car’s speed reduces, back emf reduces so current in the resistor also reduces. As the current has reduced the braking torque, which primarily depends on current, the current therefore reduces.
+
+This leads to heavy braking initially which tapers off, allowing the car to roll into the corner with reduced braking.
+
+## Anti-brake voltage
+For braking to be effective there has to be somewhere for the current to go or else the car will just coast. Anti-brake is usually designed to provide current to the motor and not to receive current from it. Therefore, if the anti-brake circuit cannot sink current no braking will occur. (Suggested controller hack to test this: try adding one or two diodes in series with your brake resistor. The resistor will sink the current and the diodes will provide an offset voltage to keep Remora alive. A more sophisticated circuit could relatively easily be designed but the diode idea would prove if it works or not.)
+
+The voltage at the Remora should be higher than the hand-controller voltage, as current flow is from Remora to the controller so voltage drops in the track wiring and braid add to the controller voltage.
+
+## Back emf
+During accelerating or running at constant speed the back emf is lower than the supply voltage, so plays no part in keeping Remora alive, it is just used for sensing the motor position to maintain synchronisation. But during braking, back emf can keep the Remora alive for a while as the mosfet output bridge acts like a 3-phase rectifier feeding power back to the Remora supply rail. See the two wave forms below. 
+
+
+Remora internal supply voltage 2V/division, 200ms/ division NO motor connected.
+Supply drops quickly in 13ms from 12V to about 1V.
+
+
+Remora internal supply voltage 2V/division, 200ms/ division WITH unloaded motor connected.
+The supply now takes nearly 1s to drop from 12V to just over 1V. The discontinuity at about 1V is at the point where Remora stops working.
+If a braking resistor had been connected, the back emf would still try to keep Remora alive but the supply rail voltage would drop much more quickly.
+
+## Drag brake
+Drag brake, or any other firmware feature needs power to Remora. Once the Remora is running it will continue to operate down to about 1.2V (one was tested  runs down to 1.16V).
+
+To experience drag brake on the bench, just try connecting all three motor phases together and spinning the motor by hand, then try with the three phases separated.
+
+If it is enabled and setup correctly by setting its PWM using “duty_drag”, drag brake comes into effect when the voltage supplied to Remora is very low (< ANALOG_MIN), which would normally mean at low motor/car speed.
+
+## Making Settings
+One of the reasons for using a boost converter in the circuit was to keep the Remora alive at a low supply voltage in an attempt to keep it working during braking into and around a corner and trying to avoid a restart procedure and a subsequent stutter in the car. This makes a case for having ANALOG_MIN set to more or less match the minimum operating of Remora (just less than 1.2V), especially if drag brake is not used.
+
+Trying to programme braking performance with firmware settings makes it difficult to tune the braking, especially if track conditions change or a different lane needs slightly adjusted values. ***Adjustments should be made on the hand-controller.***
+
+A hand-controller could be designed to control both voltage and current in and out of the controller, and to rapidly invoke drag brake by dropping the voltage faster than the motor can react, if it were decided that those characteristics are desirable. This would be similar to how a racing car is ideally controlled under braking - at a specific corner's chosen brake point, brake firmly and smoothly to transfer weight to the front and slow the car, lightly maintain the brakes until the corner apex is reached, apply the throttle smoothly while smoothly coming off the brakes.
+
+Is there a brushless hand-controller that needs to be made to enable this behaviour?
+
+The process would need to start with a clear definition of what’s needed, and maybe some trial add-ons to an existing controller to test out concepts.
+
+The DAMP setting - which turns on (default) and off complemntary pwm, is either on or off, when its on its effect cannot be increased.
+
+It might be worth trying different timing advance settings to find out if it makes any difference to braking, current is flowing in the opposite direction during braking, so should the advance go to minimum or even negative for best braking?
