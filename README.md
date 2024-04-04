@@ -169,7 +169,7 @@ The firmware build is more complex, there's an explanation below which describes
 
 All the binaries are built from sources for ESCape32 and have no sofware added DEAD_TIME, which introduces a slight delay in switching. Dead time is delegated to the hardware. If you wish to test with dead time (which we know is unnecessary) please build your own or ask us for a build with a specific setting.
 
-The names of the binaries indicate the ANALOG_MIN and ANALOG_MAX values with which they were built. Start with REMORA_198_2178-rev10.bin it has default values, 100% duty cycle and no ramping with analog voltage settings of ~1.1VDC to ~12.1VDC. We have been using this for our prototype testing. Attach a WiFi dongle to your eCom and set specific parameter values to suit your precise needs.
+The names of the binaries indicate the ANALOG_MIN and ANALOG_MAX values with which they were built. Refer to the [braking discussion below]( https://github.com/adrianblakey/slot-car-ecom/blob/main/README.md#notes-on-braking) in making your choice. The Ramora shall be supplied fully flashed and eady to go with the best choice based on our testing. Should you want to try something else, pick one of the above, download it and use the WiFi Link to upload a new binary. All of them have 100% duty cycle and no ramping. Use the WiFi Link to set specific parameter values to suit your precise needs.
 
 Note: The firmware has NOT been compiled with the "ANALOG" option so that the board and ESCape32 can be configured either by connecting a computer serial interface, or a WiFi "dongle" to the signal pins.
 
@@ -654,6 +654,6 @@ Is there a brushless hand-controller that needs to be made to enable this behavi
 
 The process would need to start with a clear definition of what’s needed, and maybe some trial add-ons to an existing controller to test out concepts.
 
-The DAMP setting - which turns on (default) and off complemntary pwm, is either on or off, when its on its effect cannot be increased.
+The DAMP setting - which turns on (default) and off complementary pwm, is either on or off, when it's on its effect cannot be increased.
 
 It might be worth trying different timing advance settings to find out if it makes any difference to braking, current is flowing in the opposite direction during braking, so should the advance go to minimum or even negative for best braking?
