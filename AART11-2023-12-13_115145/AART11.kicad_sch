@@ -8041,7 +8041,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_Taiyo-Yuden_MD-2020"
+		(property "Footprint" "Added_footprints:L_Sunltech_SLW201610P"
 			(at 69.85 114.3 0)
 			(effects
 				(font

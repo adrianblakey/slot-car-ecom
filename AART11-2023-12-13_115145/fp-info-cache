@@ -1,4 +1,4 @@
-23150537589191341
+23152250080378983
 Added_footprints
 HDG 1x04 P0.6 Horizontal
 
@@ -6,6 +6,13 @@ HDG 1x04 P0.6 Horizontal
 0
 6
 4
+Added_footprints
+L_Sunltech_SLW201610P
+Inductor, Taiyo Yuden, MD series, Taiyo-Yuden_MD-2020, 2.0mmx2.0mm
+inductor taiyo-yuden md smd
+0
+2
+2
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
