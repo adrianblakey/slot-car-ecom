@@ -1,0 +1,29 @@
+6857613167322
+AART11footprints
+C_0805_2012Metric_22µF
+Capacitor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf, https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator
+capacitor
+0
+2
+2
+AART11footprints
+HDG 1x04 P0.6 Horizontal
+
+
+0
+6
+4
+AART11footprints
+L_Sunltech_SLW2010P
+Inductor, Taiyo Yuden, MD series, Taiyo-Yuden_MD-2020, 2.0mmx2.0mm
+inductor taiyo-yuden md smd
+0
+2
+2
+AART11footprints
+Pad0.5
+SMD pad as test Point, diameter 1.0mm
+test point SMD pad
+0
+1
+1
