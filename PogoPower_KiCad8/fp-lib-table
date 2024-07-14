@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "PogoProbe")(type "KiCad")(uri "${KIPRJMOD}/PogoFootprint.pretty")(options "")(descr ""))
+)
