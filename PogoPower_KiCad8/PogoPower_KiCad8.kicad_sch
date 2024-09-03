@@ -449,16 +449,6 @@
 	)
 	(wire
 		(pts
-			(xy 142.24 91.44) (xy 143.51 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "02c07674-9150-4495-8f04-d48e754a1b34")
-	)
-	(wire
-		(pts
 			(xy 142.24 88.9) (xy 142.24 90.17)
 		)
 		(stroke
@@ -466,16 +456,6 @@
 			(type default)
 		)
 		(uuid "03c0d2b9-d2e2-4633-9748-bf51e8dea3f0")
-	)
-	(wire
-		(pts
-			(xy 156.21 91.44) (xy 157.48 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "141b9bd5-0a9d-4ee9-aa9c-05a3245bbb68")
 	)
 	(wire
 		(pts
@@ -505,17 +485,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "38191d9d-5058-4d28-907d-90e89f5d8ae5")
-	)
-	(wire
-		(pts
-			(xy 143.51 93.98) (xy 142.24 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4ad2509b-dc2f-4962-8605-9fb43a6db340")
+		(uuid "4189350b-4f8f-451d-9e61-50943bbb49e8")
 	)
 	(wire
 		(pts
@@ -539,13 +509,23 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 88.9) (xy 142.24 88.9)
+			(xy 156.21 88.9) (xy 157.48 88.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "7a8d28d1-04b6-48f3-aef7-fe2fac8455da")
+		(uuid "666b3c0b-ff6f-4507-b025-fabed64830c4")
+	)
+	(wire
+		(pts
+			(xy 156.21 91.44) (xy 157.48 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6f2b15e4-ab11-453a-b542-138e80ac850b")
 	)
 	(wire
 		(pts
@@ -556,6 +536,16 @@
 			(type default)
 		)
 		(uuid "86583250-512f-4107-bf06-d4ff03788569")
+	)
+	(wire
+		(pts
+			(xy 156.21 93.98) (xy 157.48 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f3b2baf-760d-4c08-bb9a-0b93a50367ca")
 	)
 	(wire
 		(pts
@@ -576,6 +566,16 @@
 			(type default)
 		)
 		(uuid "a573b5ef-a2b6-4605-9004-e4c2edeb2cbe")
+	)
+	(wire
+		(pts
+			(xy 142.24 96.52) (xy 143.51 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aad83a32-d236-4aad-bf0f-9ce995c296e0")
 	)
 	(wire
 		(pts
@@ -609,16 +609,6 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 88.9) (xy 157.48 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c905847e-6d3b-43bd-8e7a-3ca137ced8ca")
-	)
-	(wire
-		(pts
 			(xy 157.48 92.71) (xy 157.48 93.98)
 		)
 		(stroke
@@ -629,23 +619,23 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 93.98) (xy 156.21 93.98)
+			(xy 142.24 93.98) (xy 143.51 93.98)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "dfe7e8e8-1500-43ab-8a5c-55bd61532cd4")
+		(uuid "d921ea9f-4f51-48a7-8804-7088a20bfcd2")
 	)
 	(wire
 		(pts
-			(xy 142.24 96.52) (xy 143.51 96.52)
+			(xy 142.24 91.44) (xy 143.51 91.44)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "efd94b5b-d2d7-45fc-83a0-fe7000a2eded")
+		(uuid "f8f66a97-dd67-4003-8326-87d79364a500")
 	)
 	(wire
 		(pts
@@ -656,6 +646,16 @@
 			(type default)
 		)
 		(uuid "f98e6d67-482c-4818-ad96-af8f2241c484")
+	)
+	(wire
+		(pts
+			(xy 142.24 88.9) (xy 143.51 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd161468-fa50-4a1b-87bf-81ad39bcc8df")
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x01")
@@ -928,16 +928,16 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_02x04_Odd_Even")
-		(at 148.59 91.44 0)
+		(at 148.59 93.98 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "d004ada4-4672-4056-b37f-0aeb2bdcaf12")
 		(property "Reference" "J8"
-			(at 149.86 82.55 0)
+			(at 149.86 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -945,7 +945,7 @@
 			)
 		)
 		(property "Value" "Conn_02x04_Odd_Even"
-			(at 149.86 85.09 0)
+			(at 149.86 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -953,7 +953,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical"
-			(at 148.59 91.44 0)
+			(at 148.59 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -962,7 +962,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 148.59 91.44 0)
+			(at 148.59 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -971,7 +971,7 @@
 			)
 		)
 		(property "Description" "Generic connector, double row, 02x04, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 148.59 91.44 0)
+			(at 148.59 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
