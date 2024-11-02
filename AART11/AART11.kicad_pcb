@@ -5638,7 +5638,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Part #" "C2828593"
+		(property "JLCPCB Part #" "C2890409"
 			(at 51.2 266.3 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6156,7 +6156,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Part #" "C2828593"
+		(property "JLCPCB Part #" "C2890409"
 			(at 59.3074 274.4074 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -8607,7 +8607,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Part #" "C2828593"
+		(property "JLCPCB Part #" "C2890409"
 			(at 55.263 270.361 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12705,7 +12705,7 @@
 		(at 157.23 124.714 180)
 		(descr "SMD rectangular pad as test Point, square 2.5mm side length")
 		(tags "test point SMD pad rectangle square")
-		(property "Reference" "+"
+		(property "Reference" "TP5"
 			(at -0.02 2.714 0)
 			(layer "B.SilkS")
 			(uuid "5939c760-4afe-423b-947d-03fa1eb58880")
@@ -13200,7 +13200,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Part #" "C2828593"
+		(property "JLCPCB Part #" "C2890409"
 			(at 274.4065 -59.2841 0)
 			(layer "B.Fab")
 			(hide yes)
@@ -14246,7 +14246,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Part #" "C2828593"
+		(property "JLCPCB Part #" "C2890409"
 			(at 266.3 -51.2 0)
 			(layer "B.Fab")
 			(hide yes)
@@ -14553,7 +14553,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Part #" "C2828593"
+		(property "JLCPCB Part #" "C2890409"
 			(at 270.364 -55.264 0)
 			(layer "B.Fab")
 			(hide yes)
@@ -15080,7 +15080,7 @@
 				)
 			)
 		)
-		(property "JLCPCB Part #" "C74384"
+		(property "JLCPCB Part #" "C2890409"
 			(at 0 0 0)
 			(layer "B.Fab")
 			(hide yes)
