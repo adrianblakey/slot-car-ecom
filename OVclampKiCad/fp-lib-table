@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "AART11")(type "KiCad")(uri "${KIPRJMOD}/AART11Footprints.pretty")(options "")(descr ""))
+)
